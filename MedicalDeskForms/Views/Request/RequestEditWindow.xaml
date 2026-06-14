@@ -1,0 +1,124 @@
+﻿<Window x:Class="MedicalDeskForms.Views.Requests.RequestEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Создание заявки"
+        Width="800"
+        Height="700"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F7FA"
+        Icon="/MedicalDeskForms;component/Resources/icon.ico">
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#0A2E5D">
+
+            <Grid>
+
+                <TextBlock
+                    Text="Создание заявки"
+                    Foreground="White"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    VerticalAlignment="Center"
+                    Margin="20,0,0,0"/>
+
+                <Image
+                    Width="45"
+                    Height="45"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,20,0"
+                    Source="/MedicalDeskForms;component/Resources/logo.png"/>
+
+            </Grid>
+
+        </Border>
+
+        <ScrollViewer Grid.Row="1">
+
+            <StackPanel Margin="10">
+
+                <TextBlock
+                    Text="Кабинет"/>
+
+                <TextBox
+                    x:Name="txtRoom"
+                    Height="35"
+                    Margin="0,5,0,15"/>
+
+                <StackPanel
+                    x:Name="panelApplicant">
+
+                    <TextBlock
+                        Text="ФИО заявителя"/>
+
+                    <TextBox
+                        x:Name="txtApplicant"
+                        Height="35"
+                        Margin="0,5,0,15"/>
+
+                    <TextBlock
+                        Text="Телефон"/>
+
+                    <TextBox
+                        x:Name="txtPhone"
+                        Height="35"
+                        Margin="0,5,0,15"/>
+
+                </StackPanel>
+
+                <TextBlock
+                    Text="Тип обращения"/>
+
+                <ComboBox
+                    x:Name="cmbType"
+                    Height="35"
+                    Margin="0,5,0,15"/>
+
+                <TextBlock
+                    Text="Описание проблемы"/>
+
+                <TextBox
+                    x:Name="txtDescription"
+                    Height="220"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"/>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+        <Border Grid.Row="2"
+                Background="#E9EDF2">
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="15,0"
+                        VerticalAlignment="Center">
+
+                <Button
+                    x:Name="btnSave"
+                    Width="150"
+                    Height="35"
+                    Margin="5"
+                    Content="Сохранить"
+                    Click="btnSave_Click"/>
+
+                <Button
+                    Width="120"
+                    Height="35"
+                    Margin="5"
+                    Content="Назад"
+                    Click="btnBack_Click"/>
+
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+
+</Window>

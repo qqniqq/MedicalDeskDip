@@ -1,0 +1,153 @@
+﻿<Window x:Class="MedicalDeskForms.Views.Requests.RequestListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Заявки"
+        Height="800"
+        Width="1400"
+        WindowStartupLocation="CenterScreen"
+        Icon="/MedicalDeskForms;component/Resources/icon.ico">
+    
+
+    <Grid Margin="15">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- Панель поиска -->
+
+        <Border Grid.Row="0"
+                Background="White"
+                Padding="10"
+                Margin="0,0,0,10">
+
+            <WrapPanel>
+
+                <TextBox x:Name="txtSearch"
+                         Width="250"
+                         Height="35"
+                         Margin="5"
+                         TextChanged="txtSearch_TextChanged"/>
+
+                <ComboBox x:Name="cmbStatus"
+                          Width="180"
+                          Height="35"
+                          Margin="5"
+                          SelectionChanged="cmbStatus_SelectionChanged"/>
+
+                <Button x:Name="btnCreate"
+                        Content="Создать заявку"
+                        Width="170"
+                        Height="35"
+                        Margin="5"
+                        Click="btnCreate_Click"/>
+
+                <Button x:Name="btnRefresh"
+                        Content="Обновить"
+                        Width="130"
+                        Height="35"
+                        Margin="5"
+                        Click="btnRefresh_Click"/>
+
+            </WrapPanel>
+
+        </Border>
+
+        <!-- Быстрые фильтры -->
+
+        <WrapPanel Grid.Row="1">
+
+            <Button x:Name="btnAll"
+            Content="Все"
+            Width="130"
+            Margin="3"
+            Click="btnAll_Click"/>
+
+            <Button x:Name="btnNew"
+            Content="Новые"
+            Width="130"
+            Margin="3"
+            Click="btnNew_Click"/>
+
+            <Button x:Name="btnWork"
+            Content="В работе"
+            Width="130"
+            Margin="3"
+            Click="btnWork_Click"/>
+
+            <Button x:Name="btnCompleted"
+            Content="Завершенные"
+            Width="130"
+            Margin="3"
+            Click="btnCompleted_Click"/>
+
+            <Button x:Name="btnCanceled"
+            Content="Отмененные"
+            Width="130"
+            Margin="3"
+            Click="btnCanceled_Click"/>
+
+            <Button x:Name="btnMy"
+            Content="Мои заявки"
+            Width="130"
+            Margin="3"
+            Click="btnMy_Click"/>
+
+        </WrapPanel>
+
+        <!-- Таблица -->
+
+        <DataGrid x:Name="gridRequests"
+                  Grid.Row="2"
+                  Margin="0,10,0,0"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  MouseDoubleClick="gridRequests_MouseDoubleClick">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn
+                    Header="№"
+                    Width="140"
+                    Binding="{Binding RequestNumber}"/>
+
+                <DataGridTextColumn
+                    Header="Кабинет"
+                    Width="100"
+                    Binding="{Binding RoomNumber}"/>
+
+                <DataGridTextColumn
+                    Header="Заявитель"
+                    Width="250"
+                    Binding="{Binding ApplicantName}"/>
+
+                <DataGridTextColumn
+                    Header="Тип"
+                    Width="150"
+                    Binding="{Binding RequestTypeName}"/>
+
+                <DataGridTextColumn
+                    Header="Статус"
+                    Width="150"
+                    Binding="{Binding StatusName}"/>
+
+                <DataGridTextColumn
+                    Header="Исполнитель"
+                    Width="250"
+                    Binding="{Binding ExecutorName}"/>
+
+                <DataGridTextColumn
+    Header="Создана"
+    Width="170"
+    Binding="{Binding CreatedAt,
+    StringFormat=dd.MM.yyyy HH:mm}"/>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+    </Grid>
+
+</Window>

@@ -1,0 +1,92 @@
+﻿<Window x:Class="MedicalDeskForms.Views.Equipment.EquipmentEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Оборудование"
+        Height="700"
+        Width="900"
+        WindowStartupLocation="CenterScreen"
+        Icon="/MedicalDeskForms;component/Resources/icon.ico">
+
+    <ScrollViewer>
+
+        <Grid Margin="20">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Инвентарный номер"/>
+            <TextBox x:Name="txtInventory"
+                     Grid.Row="1"
+                     Height="35"/>
+
+            <TextBlock Grid.Row="2"
+                       Text="Наименование"/>
+
+            <TextBox x:Name="txtName"
+                     Grid.Row="3"
+                     Height="35"/>
+
+            <TextBlock Grid.Row="4"
+                       Text="Модель"/>
+
+            <TextBox x:Name="txtModel"
+                     Grid.Row="5"
+                     Height="35"/>
+
+            <TextBlock Grid.Row="6"
+                       Text="Серийный номер"/>
+
+            <TextBox x:Name="txtSerial"
+                     Grid.Row="7"
+                     Height="35"/>
+
+            <TextBlock Grid.Row="8"
+                       Text="Производитель"/>
+
+            <TextBox x:Name="txtManufacturer"
+                     Grid.Row="9"
+                     Height="35"/>
+
+            <TextBlock Grid.Row="10"
+                       Text="Кабинет"/>
+
+            <TextBox x:Name="txtRoom"
+                     Grid.Row="11"
+                     Height="35"/>
+
+            <TextBlock Grid.Row="12"
+                       Text="Состояние"/>
+
+            <ComboBox x:Name="cmbState"
+                      Grid.Row="13"
+                      Height="35"/>
+
+            <TextBlock Grid.Row="14"
+                       Text="Примечание"/>
+
+            <TextBox x:Name="txtNotes"
+                     Grid.Row="15"
+                     Height="100"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True"/>
+
+            <Button Grid.Row="16"
+                    Content="Сохранить"
+                    Height="40"
+                    Margin="0,15,0,0"
+                    Click="btnSave_Click"/>
+
+        </Grid>
+
+    </ScrollViewer>
+
+</Window>

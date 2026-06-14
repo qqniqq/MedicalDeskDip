@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36401.2 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalDeskForms", "MedicalDeskForms\MedicalDeskForms.csproj", "{DB98753F-5E72-41CA-AB48-32C7097C684D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalDeskLib", "MedicalDeskLib\MedicalDeskLib.csproj", "{CFA234A1-295F-4118-8998-BC6F866234CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB98753F-5E72-41CA-AB48-32C7097C684D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB98753F-5E72-41CA-AB48-32C7097C684D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB98753F-5E72-41CA-AB48-32C7097C684D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB98753F-5E72-41CA-AB48-32C7097C684D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFA234A1-295F-4118-8998-BC6F866234CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFA234A1-295F-4118-8998-BC6F866234CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFA234A1-295F-4118-8998-BC6F866234CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFA234A1-295F-4118-8998-BC6F866234CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF46E690-2EF1-4953-AD48-834B1FB0A7BC}
+	EndGlobalSection
+EndGlobal

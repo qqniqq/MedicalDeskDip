@@ -1,0 +1,90 @@
+﻿<Window x:Class="MedicalDeskForms.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MedicalDesk"
+        Height="650"
+        Width="1100"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Icon="/MedicalDeskForms;component/Resources/icon.ico">
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="550"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="#0A2E5D">
+
+            <StackPanel
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+
+                <Image Width="320"
+                       Height="320"
+                 Source="/MedicalDeskForms;component/Resources/logo.png"/>
+
+                <TextBlock
+                    Text="MedicalDesk"
+                    FontSize="38"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Center"/>
+
+                <TextBlock
+                    Text="Технологии поддержки здоровья"
+                    FontSize="18"
+                    Foreground="#A6D5FF"
+                    HorizontalAlignment="Center"/>
+
+            </StackPanel>
+
+        </Border>
+
+        <Border Grid.Column="1"
+                Background="White">
+
+            <Grid>
+
+                <StackPanel Width="320"
+                            VerticalAlignment="Center">
+
+                    <TextBlock
+                        Text="Вход в систему"
+                        FontSize="30"
+                        FontWeight="Bold"
+                        Margin="0,0,0,40"/>
+
+                    <TextBlock
+                        Text="Логин"/>
+
+                    <TextBox
+                        x:Name="txtLogin"
+                        Height="40"
+                        Margin="0,5,0,20"/>
+
+                    <TextBlock
+                        Text="Пароль"/>
+
+                    <PasswordBox
+                        x:Name="txtPassword"
+                        Height="40"
+                        Margin="0,5,0,30"/>
+
+                    <Button
+                        x:Name="btnLogin"
+                        Height="45"
+                        Content="Войти"
+                        FontWeight="Bold"
+                        Click="btnLogin_Click"/>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</Window>

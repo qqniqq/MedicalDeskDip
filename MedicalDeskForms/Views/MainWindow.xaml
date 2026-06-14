@@ -1,0 +1,123 @@
+﻿<Window x:Class="MedicalDeskForms.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MedicalDesk"
+        WindowState="Maximized"
+        Icon="/MedicalDeskForms;component/Resources/icon.ico">
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="250"/>
+
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <!-- Меню -->
+
+        <Border Background="#0A2E5D">
+
+            <StackPanel>
+
+                <Image
+                    Width="180"
+                    Height="180"
+                    Margin="20"
+                    Source="/Resources/logo.png"/>
+
+                <Button
+                    x:Name="btnDashboard"
+                    Content="Главная"
+                    Height="50"
+                    Margin="10"/>
+
+                <Button
+                    x:Name="btnRequests"
+                    Content="Заявки"
+                    Height="50"
+                    Margin="10"/>
+
+                <Button
+                    x:Name="btnEquipment"
+                    Content="Оборудование"
+                    Height="50"
+                    Margin="10"/>
+
+                <Button
+                    x:Name="btnMaterials"
+                    Content="Расходники"
+                    Height="50"
+                    Margin="10"/>
+
+                <Button
+                    x:Name="btnUsers"
+                    Content="Пользователи"
+                    Height="50"
+                    Margin="10"/>
+
+                <Button
+                    x:Name="btnReports"
+                    Content="Отчеты"
+                    Height="50"
+                    Margin="10"/>
+
+                <Button
+                    x:Name="btnSettings"
+                    Content="Настройки"
+                    Height="50"
+                    Margin="10"/>
+
+                <Button
+                    x:Name="btnNotifications"
+                    Content="Уведомления"
+                    Height="50"
+                    Margin="10"/>
+
+                <Button
+                    x:Name="btnExit"
+                    Content="Выход"
+                    Height="50"
+                    Margin="10"
+                    Click="btnExit_Click"/>
+
+            </StackPanel>
+
+        </Border>
+
+        <!-- Рабочая область -->
+
+        <Grid Grid.Column="1">
+
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="70"/>
+
+                <RowDefinition/>
+
+            </Grid.RowDefinitions>
+
+            <Border Background="White">
+
+                <DockPanel Margin="20">
+
+                    <TextBlock
+                        x:Name="txtCurrentUser"
+                        FontSize="18"
+                        FontWeight="Bold"/>
+
+                </DockPanel>
+
+            </Border>
+
+            <Frame
+                x:Name="MainFrame"
+                Grid.Row="1"
+                NavigationUIVisibility="Hidden"/>
+
+        </Grid>
+
+    </Grid>
+
+</Window>

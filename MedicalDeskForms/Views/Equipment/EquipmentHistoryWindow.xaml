@@ -1,0 +1,16 @@
+﻿<Window x:Class="MedicalDeskForms.Views.Equipment.EquipmentHistoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="История обслуживания"
+        Width="1200"
+        Height="700"
+        Icon="/MedicalDeskForms;component/Resources/icon.ico">
+
+    <Grid Margin="15">
+
+        <DataGrid x:Name="gridHistory"
+                  AutoGenerateColumns="True"/>
+
+    </Grid>
+
+</Window>
