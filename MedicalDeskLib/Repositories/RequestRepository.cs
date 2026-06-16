@@ -19,40 +19,49 @@ public class RequestRepository : IRequestRepository
         """
         SELECT
             r.*,
+            r.AcceptedAt,
+            r.CompletedAt,
+            r.ResolutionComment,
             rt.Name RequestTypeName,
             rs.Name StatusName,
             u.FullName ExecutorName
         FROM Requests r
         JOIN RequestTypes rt
-            ON rt.Id=r.RequestTypeId
+            ON rt.Id = r.RequestTypeId
         JOIN RequestStatuses rs
-            ON rs.Id=r.StatusId
+            ON rs.Id = r.StatusId
         LEFT JOIN Users u
-            ON u.Id=r.ExecutorId
+            ON u.Id = r.ExecutorId
         ORDER BY r.CreatedAt DESC
         """;
 
         using var cmd =
-            new MySqlCommand(sql, connection);
+            new MySqlCommand(
+                sql,
+                connection);
 
         using var reader =
             cmd.ExecuteReader();
 
         while (reader.Read())
         {
-            list.Add(Map(reader));
+            list.Add(
+                Map(reader));
         }
 
         return list;
     }
 
-    public Request? GetById(int id)
+    public Request? GetById(
+        int id)
     {
         return GetAll()
-            .FirstOrDefault(x => x.Id == id);
+            .FirstOrDefault(
+                x => x.Id == id);
     }
 
-    public void Create(Request request)
+    public void Create(
+        Request request)
     {
         using var connection =
             DbConnectionFactory.Create();
@@ -84,14 +93,33 @@ public class RequestRepository : IRequestRepository
         """;
 
         using var cmd =
-            new MySqlCommand(sql, connection);
+            new MySqlCommand(
+                sql,
+                connection);
 
-        cmd.Parameters.AddWithValue("@RoomNumber", request.RoomNumber);
-        cmd.Parameters.AddWithValue("@ApplicantName", request.ApplicantName);
-        cmd.Parameters.AddWithValue("@ApplicantPhone", request.ApplicantPhone);
-        cmd.Parameters.AddWithValue("@RequestTypeId", request.RequestTypeId);
-        cmd.Parameters.AddWithValue("@ProblemDescription", request.ProblemDescription);
-        cmd.Parameters.AddWithValue("@AuthorId", request.AuthorId);
+        cmd.Parameters.AddWithValue(
+            "@RoomNumber",
+            request.RoomNumber);
+
+        cmd.Parameters.AddWithValue(
+            "@ApplicantName",
+            request.ApplicantName);
+
+        cmd.Parameters.AddWithValue(
+            "@ApplicantPhone",
+            request.ApplicantPhone);
+
+        cmd.Parameters.AddWithValue(
+            "@RequestTypeId",
+            request.RequestTypeId);
+
+        cmd.Parameters.AddWithValue(
+            "@ProblemDescription",
+            request.ProblemDescription);
+
+        cmd.Parameters.AddWithValue(
+            "@AuthorId",
+            request.AuthorId);
 
         cmd.ExecuteNonQuery();
     }
@@ -109,17 +137,24 @@ public class RequestRepository : IRequestRepository
         """
         UPDATE Requests
         SET
-            ExecutorId=@ExecutorId,
-            AcceptedAt=NOW(),
-            StatusId=3
-        WHERE Id=@Id
+            StatusId = 2,
+            ExecutorId = @ExecutorId,
+            AcceptedAt = NOW()
+        WHERE Id = @Id
         """;
 
         using var cmd =
-            new MySqlCommand(sql, connection);
+            new MySqlCommand(
+                sql,
+                connection);
 
-        cmd.Parameters.AddWithValue("@ExecutorId", specialistId);
-        cmd.Parameters.AddWithValue("@Id", requestId);
+        cmd.Parameters.AddWithValue(
+            "@ExecutorId",
+            specialistId);
+
+        cmd.Parameters.AddWithValue(
+            "@Id",
+            requestId);
 
         cmd.ExecuteNonQuery();
     }
@@ -137,108 +172,173 @@ public class RequestRepository : IRequestRepository
         """
         UPDATE Requests
         SET
-            CompletedAt=NOW(),
-            StatusId=6,
-            SpecialistComment=@Comment
-        WHERE Id=@Id
+            StatusId = 3,
+            CompletedAt = NOW(),
+            ResolutionComment = @Comment
+        WHERE Id = @Id
         """;
 
         using var cmd =
-            new MySqlCommand(sql, connection);
+            new MySqlCommand(
+                sql,
+                connection);
 
-        cmd.Parameters.AddWithValue("@Comment", comment);
-        cmd.Parameters.AddWithValue("@Id", requestId);
+        cmd.Parameters.AddWithValue(
+            "@Comment",
+            comment);
+
+        cmd.Parameters.AddWithValue(
+            "@Id",
+            requestId);
 
         cmd.ExecuteNonQuery();
     }
 
-    public void Cancel(int requestId)
+    public void Cancel(
+        int requestId)
     {
         using var connection =
-            DbConnectionFactory.Create();
+        DbConnectionFactory.Create();
 
         connection.Open();
 
         string sql =
         """
-        UPDATE Requests
-        SET StatusId=7
-        WHERE Id=@Id
-        """;
+    UPDATE Requests
+    SET StatusId = 4
+    WHERE Id = @Id
+    """;
 
         using var cmd =
-            new MySqlCommand(sql, connection);
+            new MySqlCommand(
+                sql,
+                connection);
 
-        cmd.Parameters.AddWithValue("@Id", requestId);
+        cmd.Parameters.AddWithValue(
+            "@Id",
+            requestId);
 
         cmd.ExecuteNonQuery();
     }
 
-    public List<Request> Search(string text)
+    public List<Request> Search(
+        string text)
     {
         return GetAll()
             .Where(x =>
-                x.RequestNumber.Contains(text,
+                x.RequestNumber.Contains(
+                    text,
                     StringComparison.OrdinalIgnoreCase)
                 ||
-                x.RoomNumber.Contains(text,
+                x.RoomNumber.Contains(
+                    text,
                     StringComparison.OrdinalIgnoreCase)
                 ||
-                x.ApplicantName.Contains(text,
+                x.ApplicantName.Contains(
+                    text,
                     StringComparison.OrdinalIgnoreCase))
             .ToList();
     }
 
-    public List<Request> GetByStatus(string status)
+    public List<Request> GetByStatus(
+        string status)
     {
         return GetAll()
-            .Where(x => x.StatusName == status)
+            .Where(x =>
+                x.StatusName == status)
             .ToList();
     }
 
-    public List<Request> GetByAuthor(int authorId)
+    public List<Request> GetByAuthor(
+        int authorId)
     {
         return GetAll()
-            .Where(x => x.AuthorId == authorId)
+            .Where(x =>
+                x.AuthorId == authorId)
             .ToList();
     }
 
     private Request Map(
-    MySqlDataReader reader)
+        MySqlDataReader reader)
     {
-        return new Request
+        Request request =
+            new()
+            {
+                Id =
+                    Convert.ToInt32(
+                        reader["Id"]),
+
+                RequestNumber =
+                    reader["RequestNumber"]
+                    .ToString()!,
+                ResolutionComment =
+    reader["ResolutionComment"]
+    ?.ToString() ?? "",
+
+                RoomNumber =
+                    reader["RoomNumber"]
+                    .ToString()!,
+
+                ApplicantName =
+                    reader["ApplicantName"]
+                    .ToString()!,
+
+                ApplicantPhone =
+                    reader["ApplicantPhone"]
+                    .ToString()!,
+
+                ProblemDescription =
+                    reader["ProblemDescription"]
+                    .ToString()!,
+
+                RequestTypeName =
+                    reader["RequestTypeName"]
+                    .ToString()!,
+
+                StatusName =
+                    reader["StatusName"]
+                    .ToString()!,
+
+                ExecutorName =
+                    reader["ExecutorName"]
+                    ?.ToString() ?? "",
+
+
+                CreatedAt =
+                    Convert.ToDateTime(
+                        reader["CreatedAt"]),
+
+                AcceptedAt =
+                    reader["AcceptedAt"]
+                    == DBNull.Value
+                        ? null
+                        : Convert.ToDateTime(
+                            reader["AcceptedAt"]),
+
+                CompletedAt =
+                    reader["CompletedAt"]
+                    == DBNull.Value
+                        ? null
+                        : Convert.ToDateTime(
+                            reader["CompletedAt"]),
+
+                AuthorId =
+                    Convert.ToInt32(
+                        reader["AuthorId"])
+            };
+
+        if (request.AcceptedAt.HasValue &&
+            request.CompletedAt.HasValue)
         {
-            Id = Convert.ToInt32(reader["Id"]),
-            RequestNumber = reader["RequestNumber"].ToString()!,
-            RoomNumber = reader["RoomNumber"].ToString()!,
-            ApplicantName = reader["ApplicantName"].ToString()!,
-            ApplicantPhone = reader["ApplicantPhone"].ToString()!,
-            ProblemDescription = reader["ProblemDescription"].ToString()!,
-            RequestTypeName = reader["RequestTypeName"].ToString()!,
-            StatusName = reader["StatusName"].ToString()!,
-            ExecutorName =
-                reader["ExecutorName"]?.ToString() ?? "",
+            request.ExecutionHours =
+                (int)
+                (
+                    request.CompletedAt.Value -
+                    request.AcceptedAt.Value
+                ).TotalHours;
+        }
 
-            CreatedAt =
-                Convert.ToDateTime(
-                    reader["CreatedAt"]),
-
-            AcceptedAt =
-                reader["AcceptedAt"] == DBNull.Value
-                    ? null
-                    : Convert.ToDateTime(
-                        reader["AcceptedAt"]),
-
-            CompletedAt =
-                reader["CompletedAt"] == DBNull.Value
-                    ? null
-                    : Convert.ToDateTime(
-                        reader["CompletedAt"]),
-
-            AuthorId =
-                Convert.ToInt32(
-                    reader["AuthorId"])
-        };
+        return request;
     }
     public List<Request> GetMyRequests(
     int authorId)
@@ -252,21 +352,24 @@ public class RequestRepository : IRequestRepository
 
         string sql =
         """
-    SELECT
-        r.*,
-        rt.Name RequestTypeName,
-        rs.Name StatusName,
-        u.FullName ExecutorName
-    FROM Requests r
-    JOIN RequestTypes rt
-        ON rt.Id=r.RequestTypeId
-    JOIN RequestStatuses rs
-        ON rs.Id=r.StatusId
-    LEFT JOIN Users u
-        ON u.Id=r.ExecutorId
-    WHERE r.AuthorId=@AuthorId
-    ORDER BY r.CreatedAt DESC
-    """;
+        SELECT
+            r.*,
+            r.AcceptedAt,
+            r.CompletedAt,
+            r.ResolutionComment,
+            rt.Name RequestTypeName,
+            rs.Name StatusName,
+            u.FullName ExecutorName
+        FROM Requests r
+        JOIN RequestTypes rt
+            ON rt.Id = r.RequestTypeId
+        JOIN RequestStatuses rs
+            ON rs.Id = r.StatusId
+        LEFT JOIN Users u
+            ON u.Id = r.ExecutorId
+        WHERE r.AuthorId = @AuthorId
+        ORDER BY r.CreatedAt DESC
+        """;
 
         using var cmd =
             new MySqlCommand(
@@ -282,13 +385,15 @@ public class RequestRepository : IRequestRepository
 
         while (reader.Read())
         {
-            list.Add(Map(reader));
+            list.Add(
+                Map(reader));
         }
 
         return list;
     }
+
     public List<Request> GetActiveRequestsByAuthor(
-    int authorId)
+        int authorId)
     {
         return GetAll()
             .Where(x =>
@@ -298,5 +403,110 @@ public class RequestRepository : IRequestRepository
                 &&
                 x.StatusName != "Отменена")
             .ToList();
+    }
+
+    public List<User> GetUsers()
+    {
+        List<User> list = new();
+
+        using var connection =
+            DbConnectionFactory.Create();
+
+        connection.Open();
+
+        string sql =
+        """
+        SELECT *
+        FROM Users
+        WHERE RoleId = 3
+          AND IsActive = 1
+        ORDER BY FullName
+        """;
+
+        using var cmd =
+            new MySqlCommand(
+                sql,
+                connection);
+
+        using var reader =
+            cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            list.Add(
+                new User
+                {
+                    Id =
+                        Convert.ToInt32(
+                            reader["Id"]),
+
+                    FullName =
+                        reader["FullName"]
+                        .ToString()!,
+
+                    Phone =
+                        reader["Phone"]
+                        .ToString()!
+                });
+        }
+
+        return list;
+    }
+
+    public List<Request> GetMyActiveRequests(
+        int userId)
+    {
+        List<Request> list = new();
+
+        using var connection =
+            DbConnectionFactory.Create();
+
+        connection.Open();
+
+        string sql =
+        """
+        SELECT
+            r.*,
+            r.AcceptedAt,
+            r.CompletedAt,
+            r.ResolutionComment,
+            rt.Name RequestTypeName,
+            rs.Name StatusName,
+            u.FullName ExecutorName
+        FROM Requests r
+        JOIN RequestTypes rt
+            ON rt.Id = r.RequestTypeId
+        JOIN RequestStatuses rs
+            ON rs.Id = r.StatusId
+        LEFT JOIN Users u
+            ON u.Id = r.ExecutorId
+        WHERE r.AuthorId = @UserId
+          AND rs.Name IN
+          (
+              'Новая',
+              'В работе'
+          )
+        ORDER BY r.CreatedAt DESC
+        """;
+
+        using var cmd =
+            new MySqlCommand(
+                sql,
+                connection);
+
+        cmd.Parameters.AddWithValue(
+            "@UserId",
+            userId);
+
+        using var reader =
+            cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            list.Add(
+                Map(reader));
+        }
+
+        return list;
     }
 }

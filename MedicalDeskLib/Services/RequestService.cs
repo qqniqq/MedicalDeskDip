@@ -160,4 +160,50 @@ public class RequestService
 
         materialService.CheckMinimumStock();
     }
+    public void CreateRequestForSelectedUser(
+    int userId,
+    string room,
+    int typeId,
+    string description)
+    {
+        UserRepository users =
+            new();
+
+        User? user =
+            users.GetById(
+                userId);
+
+        if (user == null)
+            return;
+
+        repository.Create(
+            new Request
+            {
+                RoomNumber = room,
+
+                ApplicantName =
+                    user.FullName,
+
+                ApplicantPhone =
+                    user.Phone,
+
+                RequestTypeId =
+                    typeId,
+
+                ProblemDescription =
+                    description,
+
+                AuthorId =
+                    user.Id
+            });
+
+        NotificationService.Create(
+            "Заявка",
+            $"Для пользователя {user.FullName} создана заявка");
+
+        AuditService.Log(
+            SessionManager.CurrentUser!.Id,
+            "Создание заявки",
+            user.FullName);
+    }
 }

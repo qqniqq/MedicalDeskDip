@@ -2,8 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Уведомления"
-        Width="1100"
-        Height="700"
+        Width="1200"
+        Height="800"
         WindowStartupLocation="CenterScreen"
         Background="#F5F7FA"
         Icon="/MedicalDeskForms;component/Resources/icon.ico">
@@ -14,17 +14,18 @@
             <RowDefinition Height="70"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
 
         <!-- Шапка -->
 
-        <Border Background="#0A2E5D">
+        <Border Grid.Row="0"
+                Background="#0A2E5D">
 
             <Grid>
 
                 <TextBlock
-                    Text="Уведомления"
+                    Text="Центр уведомлений"
                     Foreground="White"
                     FontSize="24"
                     FontWeight="Bold"
@@ -42,57 +43,103 @@
 
         </Border>
 
-        <!-- Кнопки -->
+        <!-- Панель управления -->
 
-        <WrapPanel Grid.Row="1"
-                   Margin="0,10">
+        <Border Grid.Row="1"
+                Background="White"
+                CornerRadius="5"
+                Padding="10"
+                Margin="0,10,0,10">
 
-            <Button x:Name="btnRead"
-                    Width="200"
-                    Height="35"
-                    Margin="5"
-                    Content="Отметить прочитанным"
-                    Click="btnRead_Click"/>
+            <WrapPanel>
 
-            <Button x:Name="btnRefresh"
-                    Width="120"
-                    Height="35"
-                    Margin="5"
-                    Content="Обновить"
-                    Click="btnRefresh_Click"/>
+                <Button x:Name="btnRead"
+                        Width="220"
+                        Height="35"
+                        Margin="5"
+                        Content="Отметить как прочитанное"
+                        Click="btnRead_Click"/>
 
-        </WrapPanel>
+                <Button x:Name="btnRefresh"
+                        Width="140"
+                        Height="35"
+                        Margin="5"
+                        Content="Обновить"
+                        Click="btnRefresh_Click"/>
+
+                <TextBlock
+                    Margin="30,0,0,0"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    FontSize="14"
+                    Text="Двойной щелчок по уведомлению также помечает его как прочитанное"/>
+
+            </WrapPanel>
+
+        </Border>
 
         <!-- Таблица -->
 
-        <DataGrid
-    x:Name="gridNotifications"
-    AutoGenerateColumns="False"
-    IsReadOnly="True"
-    MouseDoubleClick="gridNotifications_MouseDoubleClick">
+        <DataGrid x:Name="gridNotifications"
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  MouseDoubleClick="gridNotifications_MouseDoubleClick">
+
+            <DataGrid.RowStyle>
+
+                <Style TargetType="DataGridRow">
+
+                    <Style.Triggers>
+
+                        <DataTrigger Binding="{Binding IsRead}"
+                                     Value="False">
+
+                            <Setter Property="FontWeight"
+                                    Value="Bold"/>
+
+                            <Setter Property="Background"
+                                    Value="#FFF8D5"/>
+
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding IsRead}"
+                                     Value="True">
+
+                            <Setter Property="Background"
+                                    Value="White"/>
+
+                        </DataTrigger>
+
+                    </Style.Triggers>
+
+                </Style>
+
+            </DataGrid.RowStyle>
 
             <DataGrid.Columns>
 
                 <DataGridTextColumn
-            Header="Дата"
-            Width="170"
-            Binding="{Binding NotificationDate,
-            StringFormat=dd.MM.yyyy HH:mm}"/>
+                    Header="Дата"
+                    Width="180"
+                    Binding="{Binding NotificationDate,
+                    StringFormat=dd.MM.yyyy HH:mm}"/>
 
                 <DataGridTextColumn
-            Header="Тип"
-            Width="150"
-            Binding="{Binding EventType}"/>
+                    Header="Тип события"
+                    Width="180"
+                    Binding="{Binding EventType}"/>
 
                 <DataGridTextColumn
-            Header="Сообщение"
-            Width="*"
-            Binding="{Binding MessageText}"/>
+                    Header="Сообщение"
+                    Width="*"
+                    Binding="{Binding MessageText}"/>
 
                 <DataGridCheckBoxColumn
-            Header="Прочитано"
-            Width="120"
-            Binding="{Binding IsRead}"/>
+                    Header="Прочитано"
+                    Width="120"
+                    Binding="{Binding IsRead}"/>
 
             </DataGrid.Columns>
 
@@ -103,17 +150,24 @@
         <Border Grid.Row="3"
                 Background="#E9EDF2">
 
-            <StackPanel Orientation="Horizontal"
-                        VerticalAlignment="Center"
-                        Margin="15,0">
+            <DockPanel Margin="15">
+
+                <TextBlock
+                    x:Name="txtInfo"
+                    FontWeight="Bold"
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Left"
+                    Text="Уведомления отображаются автоматически"/>
 
                 <Button x:Name="btnBack"
                         Width="120"
                         Height="35"
-                        Content="Назад"
+                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Right"
+                        Content="Закрыть"
                         Click="btnBack_Click"/>
 
-            </StackPanel>
+            </DockPanel>
 
         </Border>
 

@@ -168,7 +168,8 @@ public partial class UserEditWindow : Window
             txtLogin.Text.Trim();
 
         user.PasswordHash =
-            txtPassword.Password;
+     PasswordHasher.Hash(
+         txtPassword.Password);
 
         user.RoleId =
             cmbRole.SelectedIndex + 1;

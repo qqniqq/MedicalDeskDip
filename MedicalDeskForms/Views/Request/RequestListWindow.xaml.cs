@@ -34,9 +34,6 @@ public partial class RequestListWindow : Window
             btnAll.Visibility =
                 Visibility.Collapsed;
 
-            btnMy.Visibility =
-                Visibility.Collapsed;
-
             btnNew.Visibility =
                 Visibility.Collapsed;
 
@@ -51,6 +48,9 @@ public partial class RequestListWindow : Window
 
             cmbStatus.Visibility =
                 Visibility.Collapsed;
+
+            btnMy.Content =
+                "Активные заявки";
         }
     }
 
@@ -74,7 +74,7 @@ public partial class RequestListWindow : Window
             "Пользователь")
         {
             gridRequests.ItemsSource =
-                repository.GetByAuthor(
+                repository.GetMyRequests(
                     SessionManager.CurrentUser.Id);
         }
         else
@@ -91,24 +91,27 @@ public partial class RequestListWindow : Window
         if (SessionManager.CurrentUser == null)
             return;
 
+        string search =
+            txtSearch.Text.Trim();
+
         if (SessionManager.CurrentUser.RoleName ==
             "Пользователь")
         {
             gridRequests.ItemsSource =
                 repository
-                .GetByAuthor(
+                .GetMyRequests(
                     SessionManager.CurrentUser.Id)
                 .Where(x =>
                     x.RequestNumber.Contains(
-                        txtSearch.Text,
+                        search,
                         StringComparison.OrdinalIgnoreCase)
                     ||
                     x.RoomNumber.Contains(
-                        txtSearch.Text,
+                        search,
                         StringComparison.OrdinalIgnoreCase)
                     ||
                     x.ApplicantName.Contains(
-                        txtSearch.Text,
+                        search,
                         StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
@@ -116,8 +119,7 @@ public partial class RequestListWindow : Window
         }
 
         gridRequests.ItemsSource =
-            repository.Search(
-                txtSearch.Text);
+            repository.Search(search);
     }
 
     private void cmbStatus_SelectionChanged(
@@ -145,6 +147,10 @@ public partial class RequestListWindow : Window
         object sender,
         RoutedEventArgs e)
     {
+        txtSearch.Clear();
+
+        cmbStatus.SelectedIndex = 0;
+
         LoadData();
     }
 
@@ -155,9 +161,13 @@ public partial class RequestListWindow : Window
         RequestEditWindow form =
             new();
 
-        form.ShowDialog();
+        bool? result =
+            form.ShowDialog();
 
-        LoadData();
+        if (result == true)
+        {
+            LoadData();
+        }
     }
 
     private void gridRequests_MouseDoubleClick(
@@ -167,10 +177,12 @@ public partial class RequestListWindow : Window
         if (gridRequests.SelectedItem == null)
             return;
 
+        Request request =
+            (Request)
+            gridRequests.SelectedItem;
+
         RequestDetailsWindow details =
-            new(
-                (Request)
-                gridRequests.SelectedItem);
+            new(request);
 
         details.ShowDialog();
 
@@ -224,9 +236,12 @@ public partial class RequestListWindow : Window
         object sender,
         RoutedEventArgs e)
     {
+        if (SessionManager.CurrentUser == null)
+            return;
+
         gridRequests.ItemsSource =
-            repository.GetByAuthor(
-                SessionManager.CurrentUser!.Id);
+            repository.GetMyActiveRequests(
+                SessionManager.CurrentUser.Id);
     }
 
     private void btnBack_Click(

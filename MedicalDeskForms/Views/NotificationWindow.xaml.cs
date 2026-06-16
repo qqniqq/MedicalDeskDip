@@ -22,25 +22,46 @@ public partial class NotificationWindow : Window
         if (SessionManager.CurrentUser == null)
             return;
 
+        List<Notification> notifications;
+
         if (SessionManager.CurrentUser.RoleName ==
             "Администратор")
         {
-            gridNotifications.ItemsSource =
+            notifications =
                 repository.GetAll();
         }
         else
         {
-            gridNotifications.ItemsSource =
+            notifications =
                 repository.GetForUser(
                     SessionManager.CurrentUser.Id);
         }
+
+        gridNotifications.ItemsSource =
+            notifications;
+
+        int unreadCount =
+            notifications.Count(
+                x => !x.IsRead);
+
+        txtInfo.Text =
+            $"Всего уведомлений: {notifications.Count} | Непрочитанных: {unreadCount}";
     }
+
     private void btnRead_Click(
-    object sender,
-    RoutedEventArgs e)
+        object sender,
+        RoutedEventArgs e)
     {
         if (gridNotifications.SelectedItem == null)
+        {
+            MessageBox.Show(
+                "Выберите уведомление",
+                "Уведомления",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+
             return;
+        }
 
         Notification item =
             (Notification)

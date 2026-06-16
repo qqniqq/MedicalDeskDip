@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using MedicalDeskLib.Models;
+using MedicalDeskLib.Repositories;
 using MedicalDeskLib.Security;
 using MedicalDeskLib.Services;
 
@@ -9,16 +11,22 @@ public partial class RequestEditWindow : Window
     private readonly RequestService service =
         new();
 
+    private readonly UserRepository
+        userRepository =
+            new();
+
     public RequestEditWindow()
     {
         InitializeComponent();
 
         LoadTypes();
 
-        ConfigureRole();
+        LoadUsers();
+
+        ConfigureRoleMode();
     }
 
-    private void ConfigureRole()
+    private void ConfigureRoleMode()
     {
         if (SessionManager.CurrentUser == null)
             return;
@@ -26,9 +34,40 @@ public partial class RequestEditWindow : Window
         if (SessionManager.CurrentUser.RoleName ==
             "Пользователь")
         {
-            panelApplicant.Visibility =
+            panelUser.Visibility =
                 Visibility.Collapsed;
         }
+    }
+
+    private void LoadUsers()
+    {
+        cmbUser.ItemsSource =
+            userRepository.GetAll();
+
+        cmbUser.DisplayMemberPath =
+            "FullName";
+
+        cmbUser.SelectedValuePath =
+            "Id";
+
+        if (cmbUser.Items.Count > 0)
+        {
+            cmbUser.SelectedIndex = 0;
+        }
+    }
+
+    private void cmbUser_SelectionChanged(
+        object sender,
+        System.Windows.Controls.SelectionChangedEventArgs e)
+    {
+        if (cmbUser.SelectedItem == null)
+            return;
+
+        User user =
+            (User)cmbUser.SelectedItem;
+
+        txtPhone.Text =
+            user.Phone;
     }
 
     private void LoadTypes()
@@ -79,28 +118,20 @@ public partial class RequestEditWindow : Window
         }
         else
         {
-            if (string.IsNullOrWhiteSpace(
-                txtApplicant.Text))
+            if (cmbUser.SelectedItem == null)
             {
                 MessageBox.Show(
-                    "Введите ФИО заявителя");
+                    "Выберите пользователя");
 
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(
-                txtPhone.Text))
-            {
-                MessageBox.Show(
-                    "Введите телефон");
+            User user =
+                (User)cmbUser.SelectedItem;
 
-                return;
-            }
-
-            service.CreateRequestByOperator(
+            service.CreateRequestForSelectedUser(
+                user.Id,
                 txtRoom.Text,
-                txtApplicant.Text,
-                txtPhone.Text,
                 cmbType.SelectedIndex + 1,
                 txtDescription.Text);
         }

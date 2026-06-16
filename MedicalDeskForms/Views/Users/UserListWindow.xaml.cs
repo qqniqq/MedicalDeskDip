@@ -177,18 +177,19 @@ public partial class UserListWindow : Window
         object sender,
         RoutedEventArgs e)
     {
-        User? user =
-            SelectedUser();
-
-        if (user == null)
+        if (gridUsers.SelectedItem == null)
             return;
+
+        User user =
+            (User)
+            gridUsers.SelectedItem;
 
         repository.ResetPassword(
             user.Id,
             "123456");
 
         MessageBox.Show(
-            "Пароль сброшен на 123456");
+            "Новый пароль: 123456");
 
         AuditService.Log(
             SessionManager.CurrentUser?.Id,

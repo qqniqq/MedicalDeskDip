@@ -16,6 +16,8 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
+        <!-- Шапка -->
+
         <Border Background="#0A2E5D">
 
             <Grid>
@@ -39,6 +41,8 @@
 
         </Border>
 
+        <!-- Контент -->
+
         <ScrollViewer Grid.Row="1">
 
             <StackPanel Margin="10">
@@ -51,16 +55,19 @@
                     Height="35"
                     Margin="0,5,0,15"/>
 
+                <!-- Для администратора и специалиста -->
+
                 <StackPanel
-                    x:Name="panelApplicant">
+                    x:Name="panelUser">
 
                     <TextBlock
-                        Text="ФИО заявителя"/>
+                        Text="Пользователь"/>
 
-                    <TextBox
-                        x:Name="txtApplicant"
+                    <ComboBox
+                        x:Name="cmbUser"
                         Height="35"
-                        Margin="0,5,0,15"/>
+                        Margin="0,5,0,15"
+                        SelectionChanged="cmbUser_SelectionChanged"/>
 
                     <TextBlock
                         Text="Телефон"/>
@@ -68,7 +75,8 @@
                     <TextBox
                         x:Name="txtPhone"
                         Height="35"
-                        Margin="0,5,0,15"/>
+                        Margin="0,5,0,15"
+                        IsReadOnly="True"/>
 
                 </StackPanel>
 
@@ -87,11 +95,14 @@
                     x:Name="txtDescription"
                     Height="220"
                     AcceptsReturn="True"
-                    TextWrapping="Wrap"/>
+                    TextWrapping="Wrap"
+                    VerticalScrollBarVisibility="Auto"/>
 
             </StackPanel>
 
         </ScrollViewer>
+
+        <!-- Низ -->
 
         <Border Grid.Row="2"
                 Background="#E9EDF2">
@@ -109,6 +120,7 @@
                     Click="btnSave_Click"/>
 
                 <Button
+                    x:Name="btnBack"
                     Width="120"
                     Height="35"
                     Margin="5"

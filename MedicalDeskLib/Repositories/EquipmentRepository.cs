@@ -180,4 +180,28 @@ public class EquipmentRepository
             Notes = r["Notes"]?.ToString() ?? ""
         };
     }
+    public string GenerateInventoryNumber()
+    {
+        using var connection =
+            DbConnectionFactory.Create();
+
+        connection.Open();
+
+        string sql =
+        """
+    SELECT IFNULL(MAX(Id),0)+1
+    FROM Equipment
+    """;
+
+        using var cmd =
+            new MySqlCommand(
+                sql,
+                connection);
+
+        int nextId =
+            Convert.ToInt32(
+                cmd.ExecuteScalar());
+
+        return $"INV-{DateTime.Now:yyyy}-{nextId:0000}";
+    }
 }

@@ -5,23 +5,50 @@
         Height="800"
         Width="1400"
         WindowStartupLocation="CenterScreen"
+        Background="#F5F7FA"
         Icon="/MedicalDeskForms;component/Resources/icon.ico">
-    
 
     <Grid Margin="15">
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
+
+        <!-- Шапка -->
+
+        <Border Background="#0A2E5D">
+
+            <Grid>
+
+                <TextBlock
+                    Text="Управление заявками"
+                    Foreground="White"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    VerticalAlignment="Center"
+                    Margin="20,0,0,0"/>
+
+                <Image
+                    Width="45"
+                    Height="45"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,20,0"
+                    Source="/MedicalDeskForms;component/Resources/logo.png"/>
+
+            </Grid>
+
+        </Border>
 
         <!-- Панель поиска -->
 
-        <Border Grid.Row="0"
+        <Border Grid.Row="1"
                 Background="White"
                 Padding="10"
-                Margin="0,0,0,10">
+                Margin="0,10,0,10">
 
             <WrapPanel>
 
@@ -29,6 +56,7 @@
                          Width="250"
                          Height="35"
                          Margin="5"
+                         VerticalContentAlignment="Center"
                          TextChanged="txtSearch_TextChanged"/>
 
                 <ComboBox x:Name="cmbStatus"
@@ -57,60 +85,110 @@
 
         <!-- Быстрые фильтры -->
 
-        <WrapPanel Grid.Row="1">
+        <WrapPanel Grid.Row="2">
 
             <Button x:Name="btnAll"
-            Content="Все"
-            Width="130"
-            Margin="3"
-            Click="btnAll_Click"/>
+                    Content="Все"
+                    Width="130"
+                    Height="35"
+                    Margin="3"
+                    Click="btnAll_Click"/>
 
             <Button x:Name="btnNew"
-            Content="Новые"
-            Width="130"
-            Margin="3"
-            Click="btnNew_Click"/>
+                    Content="Новые"
+                    Width="130"
+                    Height="35"
+                    Margin="3"
+                    Click="btnNew_Click"/>
 
             <Button x:Name="btnWork"
-            Content="В работе"
-            Width="130"
-            Margin="3"
-            Click="btnWork_Click"/>
+                    Content="В работе"
+                    Width="130"
+                    Height="35"
+                    Margin="3"
+                    Click="btnWork_Click"/>
 
             <Button x:Name="btnCompleted"
-            Content="Завершенные"
-            Width="130"
-            Margin="3"
-            Click="btnCompleted_Click"/>
+                    Content="Завершенные"
+                    Width="130"
+                    Height="35"
+                    Margin="3"
+                    Click="btnCompleted_Click"/>
 
             <Button x:Name="btnCanceled"
-            Content="Отмененные"
-            Width="130"
-            Margin="3"
-            Click="btnCanceled_Click"/>
+                    Content="Отмененные"
+                    Width="130"
+                    Height="35"
+                    Margin="3"
+                    Click="btnCanceled_Click"/>
 
             <Button x:Name="btnMy"
-            Content="Мои заявки"
-            Width="130"
-            Margin="3"
-            Click="btnMy_Click"/>
+                    Content="Активные заявки"
+                    Width="150"
+                    Height="35"
+                    Margin="3"
+                    Click="btnMy_Click"/>
 
         </WrapPanel>
 
         <!-- Таблица -->
 
         <DataGrid x:Name="gridRequests"
-                  Grid.Row="2"
-                  Margin="0,10,0,0"
+                  Grid.Row="3"
+                  Margin="0,10,0,10"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   MouseDoubleClick="gridRequests_MouseDoubleClick">
 
+            <DataGrid.RowStyle>
+
+                <Style TargetType="DataGridRow">
+
+                    <Style.Triggers>
+
+                        <DataTrigger Binding="{Binding StatusName}"
+                                     Value="Новая">
+
+                            <Setter Property="Background"
+                                    Value="#FFF8D5"/>
+
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding StatusName}"
+                                     Value="В работе">
+
+                            <Setter Property="Background"
+                                    Value="#DDEEFF"/>
+
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding StatusName}"
+                                     Value="Завершена">
+
+                            <Setter Property="Background"
+                                    Value="#DDF5DD"/>
+
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding StatusName}"
+                                     Value="Отменена">
+
+                            <Setter Property="Background"
+                                    Value="#FFDADA"/>
+
+                        </DataTrigger>
+
+                    </Style.Triggers>
+
+                </Style>
+
+            </DataGrid.RowStyle>
+
             <DataGrid.Columns>
 
                 <DataGridTextColumn
-                    Header="№"
-                    Width="140"
+                    Header="Номер заявки"
+                    Width="150"
                     Binding="{Binding RequestNumber}"/>
 
                 <DataGridTextColumn
@@ -124,13 +202,13 @@
                     Binding="{Binding ApplicantName}"/>
 
                 <DataGridTextColumn
-                    Header="Тип"
-                    Width="150"
+                    Header="Тип обращения"
+                    Width="180"
                     Binding="{Binding RequestTypeName}"/>
 
                 <DataGridTextColumn
                     Header="Статус"
-                    Width="150"
+                    Width="140"
                     Binding="{Binding StatusName}"/>
 
                 <DataGridTextColumn
@@ -139,14 +217,33 @@
                     Binding="{Binding ExecutorName}"/>
 
                 <DataGridTextColumn
-    Header="Создана"
-    Width="170"
-    Binding="{Binding CreatedAt,
-    StringFormat=dd.MM.yyyy HH:mm}"/>
+                    Header="Создана"
+                    Width="170"
+                    Binding="{Binding CreatedAt,
+                    StringFormat=dd.MM.yyyy HH:mm}"/>
 
             </DataGrid.Columns>
 
         </DataGrid>
+
+        <!-- Низ -->
+
+        <Border Grid.Row="4"
+                Background="#E9EDF2">
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="15,0">
+
+                <Button x:Name="btnBack"
+                        Width="120"
+                        Height="35"
+                        Content="Назад"
+                        Click="btnBack_Click"/>
+
+            </StackPanel>
+
+        </Border>
 
     </Grid>
 

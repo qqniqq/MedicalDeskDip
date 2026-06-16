@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MedicalDesk"
         WindowState="Maximized"
+        Background="#F5F7FA"
         Icon="/MedicalDeskForms;component/Resources/icon.ico">
 
     <Grid>
@@ -15,7 +16,7 @@
 
         </Grid.ColumnDefinitions>
 
-        <!-- Меню -->
+        <!-- Левое меню -->
 
         <Border Background="#0A2E5D">
 
@@ -25,7 +26,7 @@
                     Width="180"
                     Height="180"
                     Margin="20"
-                    Source="/Resources/logo.png"/>
+                    Source="/MedicalDeskForms;component/Resources/logo.png"/>
 
                 <Button
                     x:Name="btnDashboard"
@@ -86,7 +87,7 @@
 
         </Border>
 
-        <!-- Рабочая область -->
+        <!-- Правая часть -->
 
         <Grid Grid.Column="1">
 
@@ -98,23 +99,244 @@
 
             </Grid.RowDefinitions>
 
+            <!-- Верхняя панель -->
+
             <Border Background="White">
 
-                <DockPanel Margin="20">
+                <Grid Margin="20">
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition/>
+
+                        <ColumnDefinition Width="300"/>
+
+                    </Grid.ColumnDefinitions>
 
                     <TextBlock
-                        x:Name="txtCurrentUser"
-                        FontSize="18"
-                        FontWeight="Bold"/>
+                x:Name="txtCurrentUser"
+                FontSize="18"
+                FontWeight="Bold"
+                VerticalAlignment="Center"/>
 
-                </DockPanel>
+                    <TextBlock
+                x:Name="txtDate"
+                Grid.Column="1"
+                FontSize="16"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"/>
+
+                </Grid>
 
             </Border>
 
-            <Frame
-                x:Name="MainFrame"
-                Grid.Row="1"
-                NavigationUIVisibility="Hidden"/>
+            <!-- Главная -->
+
+            <ScrollViewer Grid.Row="1">
+
+                <StackPanel Margin="20">
+
+                    <!-- Приветствие -->
+
+                    <Border Background="White"
+                    CornerRadius="10"
+                    Padding="25"
+                    BorderBrush="#D6DCE5"
+                    BorderThickness="1">
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="*"/>
+
+                                <ColumnDefinition Width="250"/>
+
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel>
+
+                                <TextBlock
+                            Text="MedicalDesk"
+                            FontSize="34"
+                            FontWeight="Bold"
+                            Foreground="#0A2E5D"/>
+
+                                <TextBlock
+                            Text="Система учета заявок технической поддержки"
+                            FontSize="18"
+                            Margin="0,10,0,20"/>
+
+                                <TextBlock
+                            x:Name="txtWelcome"
+                            FontSize="24"
+                            FontWeight="SemiBold"/>
+
+                            </StackPanel>
+
+
+                        </Grid>
+
+                    </Border>
+
+                    <!-- Карточки -->
+
+                    <WrapPanel Margin="0,20,0,0">
+
+                        <Border Width="250"
+                        Height="130"
+                        Margin="5"
+                        CornerRadius="10"
+                        Background="White"
+                        BorderBrush="#D6DCE5"
+                        BorderThickness="1">
+
+                            <StackPanel VerticalAlignment="Center">
+
+                                <TextBlock
+                            Text="Активные заявки"
+                            FontSize="16"
+                            HorizontalAlignment="Center"
+                            Margin="0,15,0,0"/>
+
+                                <TextBlock
+                            x:Name="txtMyActive"
+                            FontSize="42"
+                            FontWeight="Bold"
+                            HorizontalAlignment="Center"/>
+
+                            </StackPanel>
+
+                        </Border>
+
+                        <Border Width="250"
+                        Height="130"
+                        Margin="5"
+                        CornerRadius="10"
+                        Background="White"
+                        BorderBrush="#D6DCE5"
+                        BorderThickness="1">
+
+                            <StackPanel VerticalAlignment="Center">
+
+                                <TextBlock
+                            Text="Новые"
+                            FontSize="16"
+                            HorizontalAlignment="Center"
+                            Margin="0,15,0,0"/>
+
+                                <TextBlock
+                            x:Name="txtNew"
+                            FontSize="42"
+                            FontWeight="Bold"
+                            HorizontalAlignment="Center"/>
+
+                            </StackPanel>
+
+                        </Border>
+
+                        <Border Width="250"
+                        Height="130"
+                        Margin="5"
+                        CornerRadius="10"
+                        Background="White"
+                        BorderBrush="#D6DCE5"
+                        BorderThickness="1">
+
+                            <StackPanel VerticalAlignment="Center">
+
+                                <TextBlock
+                            Text="В работе"
+                            FontSize="16"
+                            HorizontalAlignment="Center"
+                            Margin="0,15,0,0"/>
+
+                                <TextBlock
+                            x:Name="txtWork"
+                            FontSize="42"
+                            FontWeight="Bold"
+                            HorizontalAlignment="Center"/>
+
+                            </StackPanel>
+
+                        </Border>
+
+                        <Border Width="250"
+                        Height="130"
+                        Margin="5"
+                        CornerRadius="10"
+                        Background="White"
+                        BorderBrush="#D6DCE5"
+                        BorderThickness="1">
+
+                            <StackPanel VerticalAlignment="Center">
+
+                                <TextBlock
+                            Text="Уведомления"
+                            FontSize="16"
+                            HorizontalAlignment="Center"
+                            Margin="0,15,0,0"/>
+
+                                <TextBlock
+                            x:Name="txtNotifications"
+                            FontSize="42"
+                            FontWeight="Bold"
+                            HorizontalAlignment="Center"/>
+
+                            </StackPanel>
+
+                        </Border>
+
+                    </WrapPanel>
+                    <!-- Информационный блок -->
+
+                    <Border Margin="0,25,0,0"
+                    Background="White"
+                    CornerRadius="10"
+                    BorderBrush="#D6DCE5"
+                    BorderThickness="1"
+                    Padding="25">
+
+                        <StackPanel>
+
+                            <TextBlock
+                        Text="Информация"
+                        FontSize="24"
+                        FontWeight="Bold"
+                        Foreground="#0A2E5D"/>
+
+                            <TextBlock
+                        Margin="0,15,0,0"
+                        FontSize="16"
+                        TextWrapping="Wrap">
+
+                        MedicalDesk предназначена для регистрации,
+                        обработки и контроля заявок на техническое
+                        обслуживание оборудования и программного
+                        обеспечения медицинского учреждения.
+
+                            </TextBlock>
+
+                            <TextBlock
+                        Margin="0,10,0,0"
+                        FontSize="16"
+                        TextWrapping="Wrap">
+
+                        Для работы используйте разделы меню слева:
+                        Заявки, Оборудование, Расходники,
+                        Пользователи, Отчеты и Уведомления.
+
+                            </TextBlock>
+
+                        </StackPanel>
+
+                    </Border>
+
+ 
+
+                </StackPanel>
+
+            </ScrollViewer>
 
         </Grid>
 

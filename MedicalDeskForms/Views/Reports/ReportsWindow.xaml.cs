@@ -1,9 +1,13 @@
 ﻿using System.Windows;
+using MedicalDeskLib.Repositories;
 
 namespace MedicalDeskForms.Views.Reports;
 
 public partial class ReportsWindow : Window
 {
+    private readonly ReportRepository repository =
+        new();
+
     public ReportsWindow()
     {
         InitializeComponent();
@@ -13,30 +17,48 @@ public partial class ReportsWindow : Window
         object sender,
         RoutedEventArgs e)
     {
-        RequestReportWindow window =
-            new();
-
-        window.ShowDialog();
+        gridReport.ItemsSource =
+            new List<object>
+            {
+                repository
+                .GetRequestStatistics()
+            };
     }
 
-    private void btnMaterialsReport_Click(
+    private void btnSpecialistsReport_Click(
         object sender,
         RoutedEventArgs e)
     {
-        MaterialReportWindow window =
-            new();
-
-        window.ShowDialog();
+        gridReport.ItemsSource =
+            repository.GetSpecialists();
     }
 
-    private void btnAuditReport_Click(
+    private void btnEquipmentReport_Click(
         object sender,
         RoutedEventArgs e)
     {
-        AuditReportWindow window =
-            new();
+        gridReport.ItemsSource =
+            new List<object>
+            {
+                repository
+                .GetEquipmentStatistics()
+            };
+    }
 
-        window.ShowDialog();
+    private void btnExcel_Click(
+        object sender,
+        RoutedEventArgs e)
+    {
+        MessageBox.Show(
+            "Экспорт Excel будет подключен следующим этапом");
+    }
+
+    private void btnPdf_Click(
+        object sender,
+        RoutedEventArgs e)
+    {
+        MessageBox.Show(
+            "Экспорт PDF будет подключен следующим этапом");
     }
 
     private void btnBack_Click(

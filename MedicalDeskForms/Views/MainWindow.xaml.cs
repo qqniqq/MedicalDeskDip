@@ -11,6 +11,12 @@ namespace MedicalDeskForms.Views;
 
 public partial class MainWindow : Window
 {
+    private readonly NotificationRepository
+        notificationRepository = new();
+
+    private readonly RequestRepository
+        requestRepository = new();
+
     public MainWindow()
     {
         InitializeComponent();
@@ -20,40 +26,129 @@ public partial class MainWindow : Window
         ConfigurePermissions();
 
         BindEvents();
+
+        LoadDashboard();
     }
 
     private void BindEvents()
     {
-        btnDashboard_Click(
-    null,
-    null!);
-        btnRequests.Click += btnRequests_Click;
-        btnEquipment.Click += btnEquipment_Click;
-        btnMaterials.Click += btnMaterials_Click;
-        btnUsers.Click += btnUsers_Click;
-        btnNotifications.Click += btnNotifications_Click;
-        btnDashboard.Click += btnDashboard_Click;
-        btnReports.Click += btnReports_Click;
+        btnRequests.Click +=
+            btnRequests_Click;
+
+        btnEquipment.Click +=
+            btnEquipment_Click;
+
+        btnMaterials.Click +=
+            btnMaterials_Click;
+
+        btnUsers.Click +=
+            btnUsers_Click;
+
+        btnNotifications.Click +=
+            btnNotifications_Click;
+
+        btnReports.Click +=
+            btnReports_Click;
     }
-    private void btnReports_Click(
-    object? sender,
-    RoutedEventArgs e)
+
+    private void LoadDashboard()
     {
-        ReportsWindow window =
-            new();
+        if (SessionManager.CurrentUser == null)
+            return;
 
-        window.ShowDialog();
+        string role =
+            SessionManager.CurrentUser.RoleName;
+
+        if (role == "Администратор")
+        {
+            var requests =
+                requestRepository.GetAll();
+
+            txtMyActive.Text =
+                requests.Count.ToString();
+
+            txtNew.Text =
+                requests
+                .Count(x =>
+                    x.StatusName == "Новая")
+                .ToString();
+
+            txtWork.Text =
+                requests
+                .Count(x =>
+                    x.StatusName == "В работе")
+                .ToString();
+
+            txtNotifications.Text =
+                notificationRepository
+                .GetAll()
+                .Count(x =>
+                    !x.IsRead)
+                .ToString();
+        }
+        else if (role == "Специалист")
+        {
+            var requests =
+                requestRepository.GetAll();
+
+            txtMyActive.Text =
+                requests
+                .Count(x =>
+                    x.StatusName == "Новая")
+                .ToString();
+
+            txtNew.Text =
+                requests
+                .Count(x =>
+                    x.StatusName == "Новая")
+                .ToString();
+
+            txtWork.Text =
+                requests
+                .Count(x =>
+                    x.StatusName == "В работе")
+                .ToString();
+
+            txtNotifications.Text =
+                notificationRepository
+                .GetUnreadCount(
+                    SessionManager.CurrentUser.Id)
+                .ToString();
+        }
+        else
+        {
+            var requests =
+                requestRepository.GetMyRequests(
+                    SessionManager.CurrentUser.Id);
+
+            txtMyActive.Text =
+                requests
+                .Count(x =>
+                    x.StatusName == "Новая"
+                    ||
+                    x.StatusName == "В работе")
+                .ToString();
+
+            txtNew.Text =
+                requests
+                .Count(x =>
+                    x.StatusName == "Новая")
+                .ToString();
+
+            txtWork.Text =
+                requests
+                .Count(x =>
+                    x.StatusName == "В работе")
+                .ToString();
+
+            txtNotifications.Text =
+                notificationRepository
+                .GetUnreadCount(
+                    SessionManager.CurrentUser.Id)
+                .ToString();
+        }
     }
 
-    private void btnDashboard_Click(
-    object? sender,
-    RoutedEventArgs e)
-    {
-        DashboardWindow window =
-            new();
-
-        window.ShowDialog();
-    }
     private void LoadUserInfo()
     {
         if (SessionManager.CurrentUser == null)
@@ -63,7 +158,8 @@ public partial class MainWindow : Window
             $"{SessionManager.CurrentUser.FullName} ({SessionManager.CurrentUser.RoleName})";
 
         int count =
-            notificationRepository.GetUnreadCount(
+            notificationRepository
+            .GetUnreadCount(
                 SessionManager.CurrentUser.Id);
 
         btnNotifications.Content =
@@ -119,6 +215,16 @@ public partial class MainWindow : Window
         }
     }
 
+    private void btnReports_Click(
+        object? sender,
+        RoutedEventArgs e)
+    {
+        ReportsWindow window =
+            new();
+
+        window.ShowDialog();
+    }
+
     private void btnRequests_Click(
         object? sender,
         RoutedEventArgs e)
@@ -127,6 +233,8 @@ public partial class MainWindow : Window
             new();
 
         window.ShowDialog();
+
+        LoadDashboard();
     }
 
     private void btnEquipment_Click(
@@ -167,9 +275,12 @@ public partial class MainWindow : Window
             new();
 
         window.ShowDialog();
+
+        LoadUserInfo();
+
+        LoadDashboard();
     }
-    private readonly NotificationRepository
-    notificationRepository = new();
+
     private void btnExit_Click(
         object sender,
         RoutedEventArgs e)
@@ -183,5 +294,4 @@ public partial class MainWindow : Window
 
         Close();
     }
-
 }

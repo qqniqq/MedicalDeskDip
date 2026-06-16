@@ -1,5 +1,6 @@
 ﻿using MedicalDeskLib.Database;
 using MedicalDeskLib.Models;
+using MedicalDeskLib.Security;
 using MySql.Data.MySqlClient;
 
 namespace MedicalDeskLib.Repositories;
@@ -50,7 +51,38 @@ public class UserRepository
 
         return users;
     }
+    public void ResetPassword(
+    int userId,
+    string newPassword)
+    {
+        using var connection =
+            DbConnectionFactory.Create();
 
+        connection.Open();
+
+        string sql =
+        """
+    UPDATE Users
+    SET PasswordHash=@Password
+    WHERE Id=@Id
+    """;
+
+        using var cmd =
+            new MySqlCommand(
+                sql,
+                connection);
+
+        cmd.Parameters.AddWithValue(
+            "@Id",
+            userId);
+
+        cmd.Parameters.AddWithValue(
+            "@Password",
+            PasswordHasher.Hash(
+                newPassword));
+
+        cmd.ExecuteNonQuery();
+    }
     public User? GetById(
         int id)
     {
@@ -58,6 +90,7 @@ public class UserRepository
             .FirstOrDefault(
                 x => x.Id == id);
     }
+
 
     public User? GetByLogin(
         string login)
@@ -288,35 +321,5 @@ public class UserRepository
         command.ExecuteNonQuery();
     }
 
-    public void ResetPassword(
-        int id,
-        string password)
-    {
-        using var connection =
-            DbConnectionFactory.Create();
-
-        connection.Open();
-
-        string sql =
-        """
-        UPDATE Users
-        SET PasswordHash=@Password
-        WHERE Id=@Id
-        """;
-
-        using var command =
-            new MySqlCommand(
-                sql,
-                connection);
-
-        command.Parameters.AddWithValue(
-            "@Password",
-            password);
-
-        command.Parameters.AddWithValue(
-            "@Id",
-            id);
-
-        command.ExecuteNonQuery();
-    }
+    
 }

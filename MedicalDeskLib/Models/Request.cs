@@ -35,4 +35,6 @@ public class Request
     public string SpecialistComment { get; set; } = "";
 
     public int AuthorId { get; set; }
+    public int ExecutionHours { get; set; }
+    public string ResolutionComment { get; set; } = "";
 }

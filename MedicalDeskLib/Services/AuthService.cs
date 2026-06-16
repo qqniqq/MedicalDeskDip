@@ -24,10 +24,14 @@ public class AuthService
         if (!user.IsActive)
             return null;
 
-        if (!PasswordHasher.Verify(
-                password,
-                user.PasswordHash))
+        string hash =
+     PasswordHasher.Hash(
+         password);
+
+        if (user.PasswordHash != hash)
+        {
             return null;
+        }
 
         SessionManager.CurrentUser = user;
 

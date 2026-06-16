@@ -71,6 +71,8 @@ public partial class RequestDetailsWindow : Window
 
         txtDescription.Text =
             request.ProblemDescription;
+        txtComment.Text =
+    request.ResolutionComment;
     }
 
     private void LoadHistory()
@@ -87,6 +89,9 @@ public partial class RequestDetailsWindow : Window
             .CurrentUser!
             .RoleName;
 
+        btnWriteOff.Visibility =
+            Visibility.Collapsed;
+
         if (role == "Пользователь")
         {
             btnTake.Visibility =
@@ -101,17 +106,54 @@ public partial class RequestDetailsWindow : Window
             txtComment.IsReadOnly =
                 true;
         }
-        btnWriteOff.Visibility =
-    Visibility.Collapsed;
 
         if (role == "Специалист")
         {
             btnCancel.Visibility =
                 Visibility.Collapsed;
+
+            txtComment.IsReadOnly =
+                false;
         }
 
         if (role == "Администратор")
         {
+            txtComment.IsReadOnly =
+                false;
+        }
+
+        if (request.StatusName == "В работе")
+        {
+            btnTake.Visibility =
+                Visibility.Collapsed;
+        }
+
+        if (request.StatusName == "Завершена")
+        {
+            btnTake.Visibility =
+                Visibility.Collapsed;
+
+            btnComplete.Visibility =
+                Visibility.Collapsed;
+
+            btnCancel.Visibility =
+                Visibility.Collapsed;
+
+            txtComment.IsReadOnly =
+                true;
+        }
+
+        if (request.StatusName == "Отменена")
+        {
+            btnTake.Visibility =
+                Visibility.Collapsed;
+
+            btnComplete.Visibility =
+                Visibility.Collapsed;
+
+            btnCancel.Visibility =
+                Visibility.Collapsed;
+
             txtComment.IsReadOnly =
                 true;
         }
@@ -121,6 +163,14 @@ public partial class RequestDetailsWindow : Window
         object sender,
         RoutedEventArgs e)
     {
+        if (request.StatusName != "Новая")
+        {
+            MessageBox.Show(
+                "Заявка уже обработана");
+
+            return;
+        }
+
         service.TakeToWork(
             request.Id);
 
@@ -134,11 +184,10 @@ public partial class RequestDetailsWindow : Window
         object sender,
         RoutedEventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(
-            txtComment.Text))
+        if (request.StatusName != "В работе")
         {
             MessageBox.Show(
-                "Введите комментарий");
+                "Сначала необходимо принять заявку в работу");
 
             return;
         }
