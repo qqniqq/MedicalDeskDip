@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Отчеты"
         Width="1400"
-        Height="800"
+        Height="850"
         WindowStartupLocation="CenterScreen"
         Background="#F5F7FA"
         Icon="/MedicalDeskForms;component/Resources/icon.ico">
@@ -12,17 +12,21 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="120"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
 
         <Border Background="#0A2E5D">
 
             <Grid>
 
                 <TextBlock
-                    Text="Отчеты"
+                    Text="Отчеты и аналитика"
                     Foreground="White"
                     FontSize="24"
                     FontWeight="Bold"
@@ -40,39 +44,187 @@
 
         </Border>
 
-        <WrapPanel Grid.Row="1"
+        <!-- Период -->
+
+        <Border Grid.Row="1"
+                Background="White"
+                BorderBrush="#D6DCE5"
+                BorderThickness="1">
+
+            <WrapPanel Margin="15"
+                       VerticalAlignment="Center">
+
+                <TextBlock
+                    Text="Период с:"
+                    VerticalAlignment="Center"
+                    Margin="0,0,10,0"/>
+
+                <DatePicker
+                    x:Name="dpDateFrom"
+                    Width="150"
+                    Margin="0,0,20,0"/>
+
+                <TextBlock
+                    Text="по:"
+                    VerticalAlignment="Center"
+                    Margin="0,0,10,0"/>
+
+                <DatePicker
+                    x:Name="dpDateTo"
+                    Width="150"
+                    Margin="0,0,20,0"/>
+
+                <Button
+                    x:Name="btnApplyPeriod"
+                    Width="170"
+                    Height="35"
+                    Content="Сформировать"
+                    Click="btnApplyPeriod_Click"/>
+
+            </WrapPanel>
+
+        </Border>
+
+        <!-- Карточки статистики -->
+
+        <WrapPanel Grid.Row="2"
+                   Margin="0,15">
+
+            <Border Width="250"
+                    Height="90"
+                    Margin="5"
+                    Background="White"
+                    BorderBrush="#D6DCE5"
+                    BorderThickness="1">
+
+                <StackPanel VerticalAlignment="Center">
+
+                    <TextBlock
+                        Text="Всего заявок"
+                        HorizontalAlignment="Center"/>
+
+                    <TextBlock
+                        x:Name="txtTotal"
+                        FontSize="30"
+                        FontWeight="Bold"
+                        HorizontalAlignment="Center"/>
+
+                </StackPanel>
+
+            </Border>
+
+            <Border Width="250"
+                    Height="90"
+                    Margin="5"
+                    Background="White"
+                    BorderBrush="#D6DCE5"
+                    BorderThickness="1">
+
+                <StackPanel VerticalAlignment="Center">
+
+                    <TextBlock
+                        Text="Новые"
+                        HorizontalAlignment="Center"/>
+
+                    <TextBlock
+                        x:Name="txtNew"
+                        FontSize="30"
+                        FontWeight="Bold"
+                        HorizontalAlignment="Center"/>
+
+                </StackPanel>
+
+            </Border>
+
+            <Border Width="250"
+                    Height="90"
+                    Margin="5"
+                    Background="White"
+                    BorderBrush="#D6DCE5"
+                    BorderThickness="1">
+
+                <StackPanel VerticalAlignment="Center">
+
+                    <TextBlock
+                        Text="В работе"
+                        HorizontalAlignment="Center"/>
+
+                    <TextBlock
+                        x:Name="txtWork"
+                        FontSize="30"
+                        FontWeight="Bold"
+                        HorizontalAlignment="Center"/>
+
+                </StackPanel>
+
+            </Border>
+
+            <Border Width="250"
+                    Height="90"
+                    Margin="5"
+                    Background="White"
+                    BorderBrush="#D6DCE5"
+                    BorderThickness="1">
+
+                <StackPanel VerticalAlignment="Center">
+
+                    <TextBlock
+                        Text="Завершено"
+                        HorizontalAlignment="Center"/>
+
+                    <TextBlock
+                        x:Name="txtCompleted"
+                        FontSize="30"
+                        FontWeight="Bold"
+                        HorizontalAlignment="Center"/>
+
+                </StackPanel>
+
+            </Border>
+
+        </WrapPanel>
+        <!-- Кнопки отчетов -->
+
+        <WrapPanel Grid.Row="3"
                    Margin="0,10">
 
-            <Button x:Name="btnRequestsReport"
-                    Width="200"
+            <Button x:Name="btnRequests"
+                    Width="220"
                     Height="35"
                     Margin="5"
                     Content="Отчет по заявкам"
-                    Click="btnRequestsReport_Click"/>
+                    Click="btnRequests_Click"/>
 
-            <Button x:Name="btnSpecialistsReport"
+            <Button x:Name="btnCompleted"
                     Width="220"
                     Height="35"
                     Margin="5"
-                    Content="Отчет по специалистам"
-                    Click="btnSpecialistsReport_Click"/>
+                    Content="Выполненные заявки"
+                    Click="btnCompleted_Click"/>
 
-            <Button x:Name="btnEquipmentReport"
+            <Button x:Name="btnSpecialists"
                     Width="220"
                     Height="35"
                     Margin="5"
-                    Content="Отчет по оборудованию"
-                    Click="btnEquipmentReport_Click"/>
+                    Content="Специалисты"
+                    Click="btnSpecialists_Click"/>
+
+            <Button x:Name="btnEquipment"
+                    Width="220"
+                    Height="35"
+                    Margin="5"
+                    Content="Оборудование"
+                    Click="btnEquipment_Click"/>
 
             <Button x:Name="btnExcel"
-                    Width="170"
+                    Width="180"
                     Height="35"
                     Margin="5"
                     Content="Экспорт Excel"
                     Click="btnExcel_Click"/>
 
             <Button x:Name="btnPdf"
-                    Width="170"
+                    Width="180"
                     Height="35"
                     Margin="5"
                     Content="Экспорт PDF"
@@ -80,13 +232,18 @@
 
         </WrapPanel>
 
+        <!-- Таблица отчета -->
+
         <DataGrid x:Name="gridReport"
-                  Grid.Row="2"
+                  Grid.Row="4"
                   Margin="0,10"
                   AutoGenerateColumns="True"
-                  IsReadOnly="True"/>
+                  IsReadOnly="True"
+                  SelectionMode="Single"/>
 
-        <Border Grid.Row="3"
+        <!-- Нижняя панель -->
+
+        <Border Grid.Row="5"
                 Background="#E9EDF2">
 
             <StackPanel Orientation="Horizontal"

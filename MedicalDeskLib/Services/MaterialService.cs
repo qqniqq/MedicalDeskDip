@@ -2,6 +2,7 @@
 using MedicalDeskLib.Repositories;
 using MedicalDeskLib.Security;
 using MySql.Data.MySqlClient;
+using MedicalDeskLib.Models;
 
 namespace MedicalDeskLib.Services;
 
@@ -111,11 +112,22 @@ public class MaterialService
         var lowStock =
             repository.GetLowStock();
 
-        foreach (var material in lowStock)
+        UserRepository users =
+      new();
+
+        foreach (var user in users.GetAll())
         {
-            NotificationService.Create(
-                "Склад",
-                $"Минимальный остаток: {material.Name}");
+            if (user.RoleName == "Администратор"
+                || user.RoleName == "Специалист")
+            {
+                foreach (var material in lowStock)
+                {
+                    NotificationService.Create(
+                        user.Id,
+                        "Склад",
+                        $"Минимальный остаток: {material.Name}");
+                }
+            }
         }
     }
 }

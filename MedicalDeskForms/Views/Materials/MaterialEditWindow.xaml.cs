@@ -44,20 +44,36 @@ public partial class MaterialEditWindow : Window
         dpReceiptDate.SelectedDate =
             material.ReceiptDate;
 
-        cmbCategory.SelectedIndex =
-            material.CategoryId - 1;
+        for (int i = 0; i < categories.Count; i++)
+        {
+            if (categories[i].Id ==
+                material.CategoryId)
+            {
+                cmbCategory.SelectedIndex =
+                    i;
+
+                break;
+            }
+        }
     }
 
     private void LoadCategories()
     {
-        cmbCategory.Items.Add("Картриджи");
-        cmbCategory.Items.Add("Бумага");
-        cmbCategory.Items.Add("Кабели");
-        cmbCategory.Items.Add("Комплектующие");
-        cmbCategory.Items.Add("Канцелярия");
-        cmbCategory.Items.Add("Прочее");
+        categories =
+            repository.GetCategories();
 
-        cmbCategory.SelectedIndex = 0;
+        cmbCategory.Items.Clear();
+
+        foreach (var category in categories)
+        {
+            cmbCategory.Items.Add(
+                category.Name);
+        }
+
+        if (cmbCategory.Items.Count > 0)
+        {
+            cmbCategory.SelectedIndex = 0;
+        }
     }
 
     private void btnSave_Click(
@@ -100,7 +116,9 @@ public partial class MaterialEditWindow : Window
             txtName.Text.Trim();
 
         item.CategoryId =
-            cmbCategory.SelectedIndex + 1;
+            categories[
+                cmbCategory.SelectedIndex]
+            .Id;
 
         item.Quantity =
             quantity;
@@ -138,7 +156,8 @@ public partial class MaterialEditWindow : Window
 
         Close();
     }
-
+    private List<MaterialCategory>
+    categories = new();
     private void btnCancel_Click(
         object sender,
         RoutedEventArgs e)

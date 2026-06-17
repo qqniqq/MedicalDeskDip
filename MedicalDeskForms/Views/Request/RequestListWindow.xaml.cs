@@ -49,8 +49,7 @@ public partial class RequestListWindow : Window
             cmbStatus.Visibility =
                 Visibility.Collapsed;
 
-            btnMy.Content =
-                "Активные заявки";
+
         }
     }
 
@@ -232,16 +231,63 @@ public partial class RequestListWindow : Window
                 "Отменена");
     }
 
-    private void btnMy_Click(
-        object sender,
-        RoutedEventArgs e)
+  
+    private void btnDelete_Click(
+    object sender,
+    RoutedEventArgs e)
     {
-        if (SessionManager.CurrentUser == null)
-            return;
+        if (gridRequests.SelectedItem == null)
+        {
+            MessageBox.Show(
+                "Выберите заявку");
 
-        gridRequests.ItemsSource =
-            repository.GetMyActiveRequests(
-                SessionManager.CurrentUser.Id);
+            return;
+        }
+
+        Request request =
+            (Request)
+            gridRequests.SelectedItem;
+
+        string role =
+            SessionManager
+            .CurrentUser!
+            .RoleName;
+
+        if (role == "Пользователь"
+            &&
+            request.StatusName != "Новая")
+        {
+            MessageBox.Show(
+                "Можно удалить только новую заявку");
+
+            return;
+        }
+
+        if (role == "Специалист")
+        {
+            MessageBox.Show(
+                "Удаление заявок недоступно");
+
+            return;
+        }
+
+        if (MessageBox.Show(
+            $"Удалить заявку № {request.RequestNumber}?",
+            "Подтверждение",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question)
+            != MessageBoxResult.Yes)
+        {
+            return;
+        }
+
+        repository.Delete(
+            request.Id);
+
+        MessageBox.Show(
+            "Заявка удалена");
+
+        LoadData();
     }
 
     private void btnBack_Click(

@@ -278,4 +278,46 @@ public class MaterialRepository
 
         cmd.ExecuteNonQuery();
     }
+    public List<MaterialCategory> GetCategories()
+    {
+        List<MaterialCategory> list =
+            new();
+
+        using var connection =
+            DbConnectionFactory.Create();
+
+        connection.Open();
+
+        string sql =
+        """
+    SELECT *
+    FROM MaterialCategories
+    ORDER BY Name
+    """;
+
+        using var cmd =
+            new MySqlCommand(
+                sql,
+                connection);
+
+        using var reader =
+            cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            list.Add(
+                new MaterialCategory
+                {
+                    Id =
+                        Convert.ToInt32(
+                            reader["Id"]),
+
+                    Name =
+                        reader["Name"]
+                        .ToString()!
+                });
+        }
+
+        return list;
+    }
 }

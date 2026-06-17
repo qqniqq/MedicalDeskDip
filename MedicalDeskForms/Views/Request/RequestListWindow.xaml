@@ -71,6 +71,12 @@
                         Height="35"
                         Margin="5"
                         Click="btnCreate_Click"/>
+                <Button x:Name="btnDelete"
+        Content="Удалить заявку"
+        Width="170"
+        Height="35"
+        Margin="5"
+        Click="btnDelete_Click"/>
 
                 <Button x:Name="btnRefresh"
                         Content="Обновить"
@@ -122,12 +128,6 @@
                     Margin="3"
                     Click="btnCanceled_Click"/>
 
-            <Button x:Name="btnMy"
-                    Content="Активные заявки"
-                    Width="150"
-                    Height="35"
-                    Margin="3"
-                    Click="btnMy_Click"/>
 
         </WrapPanel>
 

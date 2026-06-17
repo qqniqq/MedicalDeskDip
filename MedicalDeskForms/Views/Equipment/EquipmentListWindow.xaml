@@ -1,88 +1,180 @@
 ﻿<Window x:Class="MedicalDeskForms.Views.Equipment.EquipmentListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Оборудование"
+        Title="Учет оборудования"
         Width="1400"
         Height="800"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F7FA"
         Icon="/MedicalDeskForms;component/Resources/icon.ico">
 
     <Grid Margin="15">
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
-        <WrapPanel>
+        <!-- Шапка -->
 
-            <TextBox x:Name="txtSearch"
-                     Width="250"
-                     Height="35"
-                     Margin="5"/>
+        <Border Background="#0A2E5D">
 
-            <Button Content="Добавить"
+            <Grid>
+
+                <TextBlock
+                    Text="Учет оборудования"
+                    Foreground="White"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    VerticalAlignment="Center"
+                    Margin="20,0,0,0"/>
+
+                <Image
+                    Width="45"
+                    Height="45"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,20,0"
+                    Source="/MedicalDeskForms;component/Resources/logo.png"/>
+
+            </Grid>
+
+        </Border>
+
+        <!-- Панель управления -->
+
+        <Border Grid.Row="1"
+                Background="White"
+                Margin="0,10,0,10"
+                Padding="10">
+
+            <WrapPanel>
+
+                <TextBox
+                    x:Name="txtSearch"
+                    Width="280"
+                    Height="35"
+                    Margin="5"
+                    VerticalContentAlignment="Center"
+                    TextChanged="txtSearch_TextChanged"/>
+
+                <Button
                     Width="150"
                     Height="35"
                     Margin="5"
+                    Content="Добавить"
                     Click="btnAdd_Click"/>
 
-            <Button Content="Редактировать"
+                <Button
                     Width="150"
                     Height="35"
                     Margin="5"
+                    Content="Редактировать"
                     Click="btnEdit_Click"/>
 
-            <Button Content="История"
+                <Button
                     Width="150"
                     Height="35"
                     Margin="5"
+                    Content="История"
                     Click="btnHistory_Click"/>
 
-            <Button Content="Удалить"
+                <Button
                     Width="150"
                     Height="35"
                     Margin="5"
+                    Content="Удалить"
                     Click="btnDelete_Click"/>
 
-        </WrapPanel>
+                <Button
+                    Width="150"
+                    Height="35"
+                    Margin="5"
+                    Content="Обновить"
+                    Click="btnRefresh_Click"/>
+
+            </WrapPanel>
+
+        </Border>
+
+        <!-- Таблица -->
 
         <DataGrid x:Name="gridEquipment"
-                  Grid.Row="1"
-                  AutoGenerateColumns="False">
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True">
 
             <DataGrid.Columns>
 
                 <DataGridTextColumn
-                    Header="Инв. номер"
+                    Header="Инвентарный номер"
+                    Width="170"
                     Binding="{Binding InventoryNumber}"/>
 
                 <DataGridTextColumn
                     Header="Наименование"
+                    Width="220"
                     Binding="{Binding EquipmentName}"/>
 
                 <DataGridTextColumn
                     Header="Модель"
+                    Width="180"
                     Binding="{Binding Model}"/>
 
                 <DataGridTextColumn
+                    Header="Серийный номер"
+                    Width="180"
+                    Binding="{Binding SerialNumber}"/>
+
+                <DataGridTextColumn
                     Header="Производитель"
+                    Width="180"
                     Binding="{Binding Manufacturer}"/>
 
                 <DataGridTextColumn
                     Header="Кабинет"
+                    Width="100"
                     Binding="{Binding RoomNumber}"/>
 
                 <DataGridTextColumn
                     Header="Пользователь"
+                    Width="250"
                     Binding="{Binding UserName}"/>
 
                 <DataGridTextColumn
+                    Header="Дата ввода"
+                    Width="130"
+                    Binding="{Binding CommissioningDate,
+                    StringFormat=dd.MM.yyyy}"/>
+
+                <DataGridTextColumn
                     Header="Состояние"
+                    Width="150"
                     Binding="{Binding StateName}"/>
 
             </DataGrid.Columns>
 
         </DataGrid>
+
+        <!-- Низ -->
+
+        <Border Grid.Row="3"
+                Background="#E9EDF2">
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="15,0">
+
+                <Button
+                    Width="120"
+                    Height="35"
+                    Content="Назад"
+                    Click="btnBack_Click"/>
+
+            </StackPanel>
+
+        </Border>
 
     </Grid>
 

@@ -113,4 +113,11 @@ public partial class MaterialListWindow : Window
     {
         Close();
     }
+    private void btnAll_Click(
+    object sender,
+    RoutedEventArgs e)
+    {
+        LoadData();
+    }
+
 }

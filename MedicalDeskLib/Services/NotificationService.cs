@@ -6,6 +6,7 @@ namespace MedicalDeskLib.Services;
 public static class NotificationService
 {
     public static void Create(
+        int? userId,
         string eventType,
         string text)
     {
@@ -18,21 +19,34 @@ public static class NotificationService
         """
         INSERT INTO Notifications
         (
+            UserId,
             EventType,
             MessageText
         )
         VALUES
         (
+            @UserId,
             @EventType,
             @MessageText
         )
         """;
 
         using var command =
-            new MySqlCommand(sql, connection);
+            new MySqlCommand(
+                sql,
+                connection);
 
-        command.Parameters.AddWithValue("@EventType", eventType);
-        command.Parameters.AddWithValue("@MessageText", text);
+        command.Parameters.AddWithValue(
+            "@UserId",
+            userId);
+
+        command.Parameters.AddWithValue(
+            "@EventType",
+            eventType);
+
+        command.Parameters.AddWithValue(
+            "@MessageText",
+            text);
 
         command.ExecuteNonQuery();
     }

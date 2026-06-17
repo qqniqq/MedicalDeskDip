@@ -37,7 +37,7 @@ public class NotificationRepository
     }
 
     public List<Notification> GetForUser(
-        int userId)
+    int userId)
     {
         List<Notification> list =
             new();
@@ -49,12 +49,11 @@ public class NotificationRepository
 
         string sql =
         """
-        SELECT *
-        FROM Notifications
-        WHERE UserId=@UserId
-           OR UserId IS NULL
-        ORDER BY NotificationDate DESC
-        """;
+    SELECT *
+    FROM Notifications
+    WHERE UserId=@UserId
+    ORDER BY NotificationDate DESC
+    """;
 
         using var cmd =
             new MySqlCommand(
@@ -75,7 +74,28 @@ public class NotificationRepository
 
         return list;
     }
+    public int GetAllUnreadCount()
+    {
+        using var connection =
+            DbConnectionFactory.Create();
 
+        connection.Open();
+
+        string sql =
+        """
+    SELECT COUNT(*)
+    FROM Notifications
+    WHERE IsRead=0
+    """;
+
+        using var cmd =
+            new MySqlCommand(
+                sql,
+                connection);
+
+        return Convert.ToInt32(
+            cmd.ExecuteScalar());
+    }
     public void MarkAsRead(
         int id)
     {
@@ -104,7 +124,7 @@ public class NotificationRepository
     }
 
     public int GetUnreadCount(
-        int userId)
+    int userId)
     {
         using var connection =
             DbConnectionFactory.Create();
@@ -113,14 +133,11 @@ public class NotificationRepository
 
         string sql =
         """
-        SELECT COUNT(*)
-        FROM Notifications
-        WHERE IsRead=0
-          AND (
-                UserId=@UserId
-                OR UserId IS NULL
-              )
-        """;
+    SELECT COUNT(*)
+    FROM Notifications
+    WHERE IsRead=0
+      AND UserId=@UserId
+    """;
 
         using var cmd =
             new MySqlCommand(
@@ -134,7 +151,6 @@ public class NotificationRepository
         return Convert.ToInt32(
             cmd.ExecuteScalar());
     }
-
     private Notification Map(
         MySqlDataReader reader)
     {

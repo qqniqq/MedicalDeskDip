@@ -150,21 +150,33 @@ public partial class MainWindow : Window
     }
 
     private void LoadUserInfo()
+{
+    if (SessionManager.CurrentUser == null)
+        return;
+
+    txtCurrentUser.Text =
+        $"{SessionManager.CurrentUser.FullName} ({SessionManager.CurrentUser.RoleName})";
+
+    int count;
+
+    if (SessionManager.CurrentUser.RoleName ==
+        "Администратор")
     {
-        if (SessionManager.CurrentUser == null)
-            return;
-
-        txtCurrentUser.Text =
-            $"{SessionManager.CurrentUser.FullName} ({SessionManager.CurrentUser.RoleName})";
-
-        int count =
+        count =
+            notificationRepository
+            .GetAllUnreadCount();
+    }
+    else
+    {
+        count =
             notificationRepository
             .GetUnreadCount(
                 SessionManager.CurrentUser.Id);
-
-        btnNotifications.Content =
-            $"Уведомления ({count})";
     }
+
+    btnNotifications.Content =
+        $"Уведомления ({count})";
+}
 
     private void ConfigurePermissions()
     {
@@ -186,8 +198,6 @@ public partial class MainWindow : Window
                 btnUsers.Visibility =
                     Visibility.Collapsed;
 
-                btnSettings.Visibility =
-                    Visibility.Collapsed;
 
                 break;
 
@@ -199,13 +209,8 @@ public partial class MainWindow : Window
                 btnReports.Visibility =
                     Visibility.Collapsed;
 
-                btnSettings.Visibility =
-                    Visibility.Collapsed;
 
                 btnEquipment.Visibility =
-                    Visibility.Collapsed;
-
-                btnNotifications.Visibility =
                     Visibility.Collapsed;
 
                 btnMaterials.Visibility =

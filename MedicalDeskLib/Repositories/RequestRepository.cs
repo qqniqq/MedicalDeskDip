@@ -509,4 +509,82 @@ public class RequestRepository : IRequestRepository
 
         return list;
     }
+    public void Delete(int id)
+    {
+        using var connection =
+            DbConnectionFactory.Create();
+
+        connection.Open();
+
+        using var transaction =
+            connection.BeginTransaction();
+
+        try
+        {
+            string sqlMaterialHistory =
+            """
+        DELETE FROM MaterialHistory
+        WHERE RequestId=@Id
+        """;
+
+            using (var cmd =
+                new MySqlCommand(
+                    sqlMaterialHistory,
+                    connection,
+                    transaction))
+            {
+                cmd.Parameters.AddWithValue(
+                    "@Id",
+                    id);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            string sqlRequestHistory =
+            """
+        DELETE FROM RequestHistory
+        WHERE RequestId=@Id
+        """;
+
+            using (var cmd =
+                new MySqlCommand(
+                    sqlRequestHistory,
+                    connection,
+                    transaction))
+            {
+                cmd.Parameters.AddWithValue(
+                    "@Id",
+                    id);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            string sqlRequest =
+            """
+        DELETE FROM Requests
+        WHERE Id=@Id
+        """;
+
+            using (var cmd =
+                new MySqlCommand(
+                    sqlRequest,
+                    connection,
+                    transaction))
+            {
+                cmd.Parameters.AddWithValue(
+                    "@Id",
+                    id);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            transaction.Commit();
+        }
+        catch
+        {
+            transaction.Rollback();
+
+            throw;
+        }
+    }
 }

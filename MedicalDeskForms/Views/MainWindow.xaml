@@ -23,8 +23,8 @@
             <StackPanel>
 
                 <Image
-                    Width="180"
-                    Height="180"
+                    Width="214"
+                    Height="177"
                     Margin="20"
                     Source="/MedicalDeskForms;component/Resources/logo.png"/>
 
@@ -64,11 +64,7 @@
                     Height="50"
                     Margin="10"/>
 
-                <Button
-                    x:Name="btnSettings"
-                    Content="Настройки"
-                    Height="50"
-                    Margin="10"/>
+
 
                 <Button
                     x:Name="btnNotifications"

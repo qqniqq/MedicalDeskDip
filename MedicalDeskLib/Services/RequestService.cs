@@ -13,6 +13,10 @@ public class RequestService
         historyRepository =
             new();
 
+    private readonly UserRepository
+        userRepository =
+            new();
+
     public void CreateRequestByUser(
         string room,
         int typeId,
@@ -40,9 +44,22 @@ public class RequestService
             });
 
         NotificationService.Create(
+            SessionManager.CurrentUser.Id,
             "Заявка",
-            "Создана новая заявка");
+            "Ваша заявка успешно зарегистрирована");
+        UserRepository users =
+    new();
 
+        foreach (var user in users.GetAll())
+        {
+            if (user.RoleName == "Специалист")
+            {
+                NotificationService.Create(
+                    user.Id,
+                    "Новая заявка",
+                    "Поступила новая заявка");
+            }
+        }
         AuditService.Log(
             SessionManager.CurrentUser.Id,
             "Создание заявки",
@@ -79,8 +96,9 @@ public class RequestService
             });
 
         NotificationService.Create(
+            SessionManager.CurrentUser.Id,
             "Заявка",
-            "Создана новая заявка");
+            "Заявка успешно зарегистрирована");
 
         AuditService.Log(
             SessionManager.CurrentUser.Id,
@@ -101,9 +119,17 @@ public class RequestService
             "Заявка принята специалистом",
             SessionManager.CurrentUser.Id);
 
-        NotificationService.Create(
-            "Заявка",
-            $"Заявка №{requestId} принята в работу");
+        Request? request =
+            repository.GetById(
+                requestId);
+
+        if (request != null)
+        {
+            NotificationService.Create(
+                request.AuthorId,
+                "Заявка",
+                $"Ваша заявка №{request.RequestNumber} принята в работу");
+        }
 
         AuditService.Log(
             SessionManager.CurrentUser.Id,
@@ -125,18 +151,25 @@ public class RequestService
             comment,
             SessionManager.CurrentUser!.Id);
 
-        NotificationService.Create(
-            "Заявка",
-            $"Заявка №{requestId} завершена");
+        Request? request =
+            repository.GetById(
+                requestId);
+
+        if (request != null)
+        {
+            NotificationService.Create(
+                request.AuthorId,
+                "Заявка",
+                $"Ваша заявка №{request.RequestNumber} завершена");
+        }
 
         AuditService.Log(
             SessionManager.CurrentUser.Id,
             "Завершение заявки",
             comment);
     }
-
     public void CancelRequest(
-        int requestId)
+    int requestId)
     {
         repository.Cancel(
             requestId);
@@ -147,24 +180,34 @@ public class RequestService
             "Заявка отменена",
             SessionManager.CurrentUser!.Id);
 
-        NotificationService.Create(
-            "Заявка",
-            $"Заявка №{requestId} отменена");
+        Request? request =
+            repository.GetById(
+                requestId);
+
+        if (request != null)
+        {
+            NotificationService.Create(
+                request.AuthorId,
+                "Заявка",
+                $"Ваша заявка №{request.RequestNumber} отменена");
+        }
 
         AuditService.Log(
             SessionManager.CurrentUser.Id,
             "Отмена заявки",
             $"Заявка №{requestId}");
+
         MaterialService materialService =
-    new();
+            new();
 
         materialService.CheckMinimumStock();
     }
+
     public void CreateRequestForSelectedUser(
-    int userId,
-    string room,
-    int typeId,
-    string description)
+        int userId,
+        string room,
+        int typeId,
+        string description)
     {
         UserRepository users =
             new();
@@ -198,9 +241,19 @@ public class RequestService
             });
 
         NotificationService.Create(
+            user.Id,
             "Заявка",
-            $"Для пользователя {user.FullName} создана заявка");
-
+            "Для вас зарегистрирована новая заявка");
+        foreach (var specialist in users.GetAll())
+        {
+            if (specialist.RoleName == "Специалист")
+            {
+                NotificationService.Create(
+                    specialist.Id,
+                    "Новая заявка",
+                    "Поступила новая заявка");
+            }
+        }
         AuditService.Log(
             SessionManager.CurrentUser!.Id,
             "Создание заявки",
