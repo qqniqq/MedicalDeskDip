@@ -12,24 +12,34 @@ public partial class UserListWindow : Window
     private readonly UserRepository repository =
         new();
 
+    private List<User> users =
+        new();
+
     public UserListWindow()
     {
         InitializeComponent();
+
+        txtWatermark.Visibility =
+            Visibility.Visible;
 
         LoadData();
     }
 
     private void LoadData()
     {
-        gridUsers.ItemsSource =
+        users =
             repository.GetAll();
+
+        gridUsers.ItemsSource =
+            users;
 
         UpdateBlockButton();
     }
 
     private User? SelectedUser()
     {
-        return gridUsers.SelectedItem as User;
+        return gridUsers.SelectedItem
+            as User;
     }
 
     private void UpdateBlockButton()
@@ -51,6 +61,74 @@ public partial class UserListWindow : Window
                 : "Разблокировать";
     }
 
+    private void txtSearch_TextChanged(
+        object sender,
+        TextChangedEventArgs e)
+    {
+        txtWatermark.Visibility =
+            string.IsNullOrWhiteSpace(
+                txtSearch.Text)
+            ? Visibility.Visible
+            : Visibility.Collapsed;
+
+        string text =
+            txtSearch.Text.Trim();
+
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            gridUsers.ItemsSource =
+                users;
+
+            return;
+        }
+
+        gridUsers.ItemsSource =
+            users
+            .Where(x =>
+
+                (x.FullName?
+                    .Contains(
+                        text,
+                        StringComparison.OrdinalIgnoreCase)
+                 ?? false)
+
+                ||
+
+                (x.Login?
+                    .Contains(
+                        text,
+                        StringComparison.OrdinalIgnoreCase)
+                 ?? false)
+
+                ||
+
+                (x.Phone?
+                    .Contains(
+                        text,
+                        StringComparison.OrdinalIgnoreCase)
+                 ?? false)
+
+                ||
+
+                (x.RoleName?
+                    .Contains(
+                        text,
+                        StringComparison.OrdinalIgnoreCase)
+                 ?? false)
+
+                ||
+
+                (x.IsActive
+                    ? "Активен"
+                    : "Заблокирован")
+                    .Contains(
+                        text,
+                        StringComparison.OrdinalIgnoreCase)
+
+            )
+            .ToList();
+    }
+
     private void gridUsers_SelectionChanged(
         object sender,
         SelectionChangedEventArgs e)
@@ -62,6 +140,8 @@ public partial class UserListWindow : Window
         object sender,
         RoutedEventArgs e)
     {
+        txtSearch.Clear();
+
         LoadData();
     }
 

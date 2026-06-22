@@ -52,6 +52,121 @@ public class EquipmentHistoryRepository
             });
         }
 
+
         return list;
+    }
+    public void Add(
+    int equipmentId,
+    string action,
+    string comment)
+    {
+        using var connection =
+            DbConnectionFactory.Create();
+
+        connection.Open();
+
+        string sql =
+        """
+    INSERT INTO EquipmentHistory
+    (
+        EquipmentId,
+        ServiceDate,
+        FaultDescription,
+        WorkPerformed,
+        CommentText,
+        ExecutorId
+    )
+    VALUES
+    (
+        @EquipmentId,
+        NOW(),
+        @FaultDescription,
+        @WorkPerformed,
+        @CommentText,
+        NULL
+    )
+    """;
+
+        using var cmd =
+            new MySqlCommand(
+                sql,
+                connection);
+
+        cmd.Parameters.AddWithValue(
+            "@EquipmentId",
+            equipmentId);
+
+        cmd.Parameters.AddWithValue(
+            "@FaultDescription",
+            action);
+
+        cmd.Parameters.AddWithValue(
+            "@WorkPerformed",
+            action);
+
+        cmd.Parameters.AddWithValue(
+            "@CommentText",
+            comment);
+
+        cmd.ExecuteNonQuery();
+    }
+    public void AddService(
+    int equipmentId,
+    string fault,
+    string work,
+    string comment,
+    int executorId)
+    {
+        using var connection =
+            DbConnectionFactory.Create();
+
+        connection.Open();
+
+        string sql =
+        """
+    INSERT INTO EquipmentHistory
+    (
+        EquipmentId,
+        ServiceDate,
+        FaultDescription,
+        WorkPerformed,
+        CommentText,
+        ExecutorId
+    )
+    VALUES
+    (
+        @EquipmentId,
+        NOW(),
+        @FaultDescription,
+        @WorkPerformed,
+        @CommentText,
+        @ExecutorId
+    )
+    """;
+
+        using var cmd =
+            new MySqlCommand(sql, connection);
+
+        cmd.Parameters.AddWithValue(
+            "@EquipmentId",
+            equipmentId);
+
+        cmd.Parameters.AddWithValue(
+            "@FaultDescription",
+            fault);
+
+        cmd.Parameters.AddWithValue(
+            "@WorkPerformed",
+            work);
+
+        cmd.Parameters.AddWithValue(
+            "@CommentText",
+            comment);
+
+        cmd.Parameters.AddWithValue(
+            "@ExecutorId",
+            executorId);
+
+        cmd.ExecuteNonQuery();
     }
 }

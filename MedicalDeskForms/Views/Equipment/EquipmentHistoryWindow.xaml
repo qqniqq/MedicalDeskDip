@@ -52,25 +52,30 @@
             <DataGrid.Columns>
 
                 <DataGridTextColumn
-                    Header="Дата"
-                    Width="170"
-                    Binding="{Binding ServiceDate,
-                    StringFormat=dd.MM.yyyy HH:mm}"/>
+        Header="Дата"
+        Width="170"
+        Binding="{Binding ServiceDate,
+        StringFormat=dd.MM.yyyy HH:mm}"/>
 
                 <DataGridTextColumn
-                    Header="Тип обслуживания"
-                    Width="220"
-                    Binding="{Binding ServiceType}"/>
+        Header="Неисправность"
+        Width="250"
+        Binding="{Binding FaultDescription}"/>
 
                 <DataGridTextColumn
-                    Header="Специалист"
-                    Width="250"
-                    Binding="{Binding SpecialistName}"/>
+        Header="Выполненные работы"
+        Width="350"
+        Binding="{Binding WorkPerformed}"/>
 
                 <DataGridTextColumn
-                    Header="Описание работ"
-                    Width="*"
-                    Binding="{Binding Description}"/>
+        Header="Специалист"
+        Width="250"
+        Binding="{Binding ExecutorName}"/>
+
+                <DataGridTextColumn
+        Header="Комментарий"
+        Width="*"
+        Binding="{Binding CommentText}"/>
 
             </DataGrid.Columns>
 

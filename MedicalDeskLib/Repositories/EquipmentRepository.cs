@@ -6,6 +6,8 @@ namespace MedicalDeskLib.Repositories;
 
 public class EquipmentRepository
 {
+    private readonly EquipmentHistoryRepository
+    historyRepository = new();
     public List<Equipment> GetAll()
     {
         List<Equipment> list = new();
@@ -125,6 +127,7 @@ public class EquipmentRepository
         cmd.Parameters.AddWithValue("@Id", equipment.Id);
 
         cmd.ExecuteNonQuery();
+
     }
 
     public void Delete(int id)
@@ -146,6 +149,7 @@ public class EquipmentRepository
         cmd.Parameters.AddWithValue("@Id", id);
 
         cmd.ExecuteNonQuery();
+
     }
 
     private void FillParameters(
@@ -168,16 +172,59 @@ public class EquipmentRepository
     {
         return new Equipment
         {
-            Id = Convert.ToInt32(r["Id"]),
-            InventoryNumber = r["InventoryNumber"].ToString()!,
-            EquipmentName = r["EquipmentName"].ToString()!,
-            Model = r["Model"].ToString()!,
-            SerialNumber = r["SerialNumber"].ToString()!,
-            Manufacturer = r["Manufacturer"].ToString()!,
-            RoomNumber = r["RoomNumber"].ToString()!,
-            UserName = r["UserName"]?.ToString() ?? "",
-            StateName = r["StateName"].ToString()!,
-            Notes = r["Notes"]?.ToString() ?? ""
+            Id =
+                Convert.ToInt32(
+                    r["Id"]),
+
+            InventoryNumber =
+                r["InventoryNumber"]
+                .ToString()!,
+
+            EquipmentName =
+                r["EquipmentName"]
+                .ToString()!,
+
+            Model =
+                r["Model"]
+                .ToString()!,
+
+            SerialNumber =
+                r["SerialNumber"]
+                .ToString()!,
+
+            Manufacturer =
+                r["Manufacturer"]
+                .ToString()!,
+
+            RoomNumber =
+                r["RoomNumber"]
+                .ToString()!,
+
+            UserId =
+                r["UserId"] == DBNull.Value
+                ? null
+                : Convert.ToInt32(
+                    r["UserId"]),
+
+            UserName =
+                r["UserName"]?.ToString()
+                ?? "",
+
+            CommissioningDate =
+                Convert.ToDateTime(
+                    r["CommissioningDate"]),
+
+            StateId =
+                Convert.ToInt32(
+                    r["StateId"]),
+
+            StateName =
+                r["StateName"]
+                .ToString()!,
+
+            Notes =
+                r["Notes"]?.ToString()
+                ?? ""
         };
     }
     public string GenerateInventoryNumber()

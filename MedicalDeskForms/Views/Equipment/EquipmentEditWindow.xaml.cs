@@ -2,6 +2,8 @@
 using MedicalDeskLib.Repositories;
 using EquipmentModel = MedicalDeskLib.Models.Equipment;
 using MedicalDeskLib.Models;
+using System.Windows.Input;
+
 
 namespace MedicalDeskForms.Views.Equipment;
 
@@ -28,8 +30,18 @@ public partial class EquipmentEditWindow : Window
 
         dpCommissioningDate.SelectedDate =
             DateTime.Today;
-    }
+        dpCommissioningDate.DisplayDateStart =
+    new DateTime(2020, 1, 1);
 
+        dpCommissioningDate.DisplayDateEnd =
+            DateTime.Today;
+    }
+    private void DatePicker_PreviewTextInput(
+    object sender,
+    TextCompositionEventArgs e)
+    {
+        e.Handled = true;
+    }
     public EquipmentEditWindow(
       EquipmentModel equipment)
           : this()
@@ -62,6 +74,7 @@ public partial class EquipmentEditWindow : Window
 
         dpCommissioningDate.SelectedDate =
             equipment.CommissioningDate;
+
 
         cmbState.SelectedIndex =
             equipment.StateId - 1;
@@ -126,6 +139,14 @@ public partial class EquipmentEditWindow : Window
     object sender,
     RoutedEventArgs e)
     {
+        if (dpCommissioningDate.SelectedDate <
+    new DateTime(2020, 1, 1))
+        {
+            MessageBox.Show(
+                "Дата ввода указана некорректно");
+
+            return;
+        }
         if (string.IsNullOrWhiteSpace(
             txtName.Text))
         {
@@ -195,9 +216,21 @@ public partial class EquipmentEditWindow : Window
                 .Id;
         }
 
+        EquipmentHistoryRepository
+      historyRepository =
+          new();
+
         if (equipment == null)
         {
             repository.Add(item);
+
+            EquipmentModel addedEquipment =
+                repository
+                .GetAll()
+                .OrderByDescending(
+                    x => x.Id)
+                .First();
+
 
             MessageBox.Show(
                 "Оборудование успешно добавлено");
@@ -206,13 +239,10 @@ public partial class EquipmentEditWindow : Window
         {
             repository.Update(item);
 
+
             MessageBox.Show(
                 "Оборудование успешно сохранено");
         }
-
-        DialogResult = true;
-
-        Close();
     }
 
     private void btnBack_Click(

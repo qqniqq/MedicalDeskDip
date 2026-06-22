@@ -1,0 +1,104 @@
+﻿<Window x:Class="MedicalDeskForms.Views.Equipment.EquipmentServiceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Обслуживание оборудования"
+        Width="900"
+        Height="700"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F7FA"
+        Icon="/MedicalDeskForms;component/Resources/icon.ico">
+
+    <Grid Margin="15">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#0A2E5D">
+
+            <Grid>
+
+                <TextBlock
+                    Text="Регистрация обслуживания оборудования"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    VerticalAlignment="Center"
+                    Margin="20,0,0,0"/>
+
+                <Image
+                    Width="45"
+                    Height="45"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,20,0"
+                    Source="/MedicalDeskForms;component/Resources/logo.png"/>
+
+            </Grid>
+
+        </Border>
+
+        <ScrollViewer Grid.Row="1">
+
+            <StackPanel Margin="10">
+
+                <TextBlock Text="Неисправность"/>
+
+                <TextBox
+                    x:Name="txtFault"
+                    Height="100"
+                    Margin="0,5,0,15"
+                    TextWrapping="Wrap"
+                    AcceptsReturn="True"/>
+
+                <TextBlock Text="Выполненные работы"/>
+
+                <TextBox
+                    x:Name="txtWork"
+                    Height="100"
+                    Margin="0,5,0,15"
+                    TextWrapping="Wrap"
+                    AcceptsReturn="True"/>
+
+                <TextBlock Text="Комментарий"/>
+
+                <TextBox
+                    x:Name="txtComment"
+                    Height="120"
+                    Margin="0,5,0,15"
+                    TextWrapping="Wrap"
+                    AcceptsReturn="True"/>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+        <Border Grid.Row="2"
+                Background="#E9EDF2">
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="15,0">
+
+                <Button
+                    Width="150"
+                    Height="35"
+                    Margin="5"
+                    Content="Сохранить"
+                    Click="btnSave_Click"/>
+
+                <Button
+                    Width="120"
+                    Height="35"
+                    Margin="5"
+                    Content="Назад"
+                    Click="btnBack_Click"/>
+
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+
+</Window>

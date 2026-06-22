@@ -38,53 +38,73 @@
 
             <WrapPanel>
 
-                <Button
-                    x:Name="btnAdd"
-                    Width="150"
-                    Height="35"
-                    Margin="5"
-                    Content="Добавить"
-                    Click="btnAdd_Click"/>
+                <Grid Width="320"
+          Height="35"
+          Margin="5">
+
+                    <TextBox
+            x:Name="txtSearch"
+            VerticalContentAlignment="Center"
+            Padding="10,0,10,0"
+            TextChanged="txtSearch_TextChanged"/>
+
+                    <TextBlock
+            x:Name="txtWatermark"
+            Text="Поиск: ФИО, логин, телефон, роль..."
+            Foreground="Gray"
+            Margin="12,0,0,0"
+            VerticalAlignment="Center"
+            IsHitTestVisible="False"/>
+
+                </Grid>
 
                 <Button
-                    x:Name="btnEdit"
-                    Width="150"
-                    Height="35"
-                    Margin="5"
-                    Content="Редактировать"
-                    Click="btnEdit_Click"/>
+        x:Name="btnAdd"
+        Width="150"
+        Height="35"
+        Margin="5"
+        Content="Добавить"
+        Click="btnAdd_Click"/>
 
                 <Button
-                    x:Name="btnDelete"
-                    Width="150"
-                    Height="35"
-                    Margin="5"
-                    Content="Удалить"
-                    Click="btnDelete_Click"/>
+        x:Name="btnEdit"
+        Width="150"
+        Height="35"
+        Margin="5"
+        Content="Редактировать"
+        Click="btnEdit_Click"/>
 
                 <Button
-                    x:Name="btnBlock"
-                    Width="180"
-                    Height="35"
-                    Margin="5"
-                    Content="Блокировать"
-                    Click="btnBlock_Click"/>
+        x:Name="btnDelete"
+        Width="150"
+        Height="35"
+        Margin="5"
+        Content="Удалить"
+        Click="btnDelete_Click"/>
 
                 <Button
-                    x:Name="btnResetPassword"
-                    Width="180"
-                    Height="35"
-                    Margin="5"
-                    Content="Сбросить пароль"
-                    Click="btnResetPassword_Click"/>
+        x:Name="btnBlock"
+        Width="180"
+        Height="35"
+        Margin="5"
+        Content="Блокировать"
+        Click="btnBlock_Click"/>
 
                 <Button
-                    x:Name="btnRefresh"
-                    Width="150"
-                    Height="35"
-                    Margin="5"
-                    Content="Обновить"
-                    Click="btnRefresh_Click"/>
+        x:Name="btnResetPassword"
+        Width="180"
+        Height="35"
+        Margin="5"
+        Content="Сбросить пароль"
+        Click="btnResetPassword_Click"/>
+
+                <Button
+        x:Name="btnRefresh"
+        Width="150"
+        Height="35"
+        Margin="5"
+        Content="Обновить"
+        Click="btnRefresh_Click"/>
 
             </WrapPanel>
 

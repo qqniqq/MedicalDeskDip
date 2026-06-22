@@ -1,8 +1,10 @@
-﻿using System.Data;
-using System.Windows;
-using MedicalDeskLib.Repositories;
-using Microsoft.Win32;
+﻿using MedicalDeskLib.Repositories;
 using MedicalDeskLib.Services;
+using Microsoft.Win32;
+using System.Data;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace MedicalDeskForms.Views.Reports;
 
@@ -34,6 +36,7 @@ public partial class ReportsWindow : Window
 
         currentReport =
             "Отчет по заявкам";
+        ConfigureRequestColumns();
 
         LoadRequestsReport();
     }
@@ -65,6 +68,7 @@ public partial class ReportsWindow : Window
                 { "Model", "Модель" },
                 { "Manufacturer", "Производитель" },
                 { "UserName", "Ответственный" },
+                { "CommissioningDate", "Дата ввода" },
                 { "StateName", "Состояние" },
 
                 { "SpecialistName", "Специалист" },
@@ -85,12 +89,26 @@ public partial class ReportsWindow : Window
             first.GetType()
             .GetProperties();
         string[] hiddenFields =
-   {
+        {
     "Id",
     "RequestTypeId",
     "StatusId",
     "ExecutorId",
-    "AuthorId"
+    "AuthorId",
+
+    "UserId",
+    "StateId",
+
+    "ExecutionHours",
+    "ResolutionComment",
+
+    "ApplicantPhone",
+    "AcceptedAt",
+    "CompletedAt",
+    "SpecialistComment",
+
+    "SerialNumber",
+    "Notes"
 };
 
         var visibleProps =
@@ -125,8 +143,18 @@ public partial class ReportsWindow : Window
                     visibleProps[i]
                     .GetValue(item);
 
-                row[i] =
-                    value?.ToString() ?? "";
+                if (value is DateTime date)
+                {
+                    row[i] =
+                        date.ToString(
+                            "dd.MM.yyyy");
+                }
+                else
+                {
+                    row[i] =
+                        value?.ToString()
+                        ?? "";
+                }
             }
 
             table.Rows.Add(row);
@@ -152,7 +180,246 @@ public partial class ReportsWindow : Window
         txtCompleted.Text =
             stats.CompletedRequests.ToString();
     }
+    private void ConfigureRequestColumns()
+    {
+        gridReport.Columns.Clear();
 
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header = "Номер заявки",
+                Binding =
+                    new Binding("RequestNumber"),
+                Width = 150
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header = "Кабинет",
+                Binding =
+                    new Binding("RoomNumber"),
+                Width = 100
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header = "Заявитель",
+                Binding =
+                    new Binding("ApplicantName"),
+                Width = 220
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header = "Телефон",
+                Binding =
+                    new Binding("ApplicantPhone"),
+                Width = 140
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header = "Тип заявки",
+                Binding =
+                    new Binding("RequestTypeName"),
+                Width = 180
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header = "Описание проблемы",
+                Binding =
+                    new Binding("ProblemDescription"),
+                Width = 300
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header = "Статус",
+                Binding =
+                    new Binding("StatusName"),
+                Width = 120
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header = "Дата создания",
+                Binding =
+                    new Binding("CreatedAt")
+                    {
+                        StringFormat =
+                            "dd.MM.yyyy"
+                    },
+                Width = 130
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header = "Исполнитель",
+                Binding =
+                    new Binding("ExecutorName"),
+                Width = 220
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header =
+                    "Комментарий специалиста",
+                Binding =
+                    new Binding("SpecialistComment"),
+                Width = 250
+            });
+    }
+    private void ConfigureSpecialistColumns()
+    {
+        gridReport.Columns.Clear();
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header = "Специалист",
+                Binding =
+                    new Binding(
+                        "SpecialistName"),
+                Width = 350
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header =
+                    "Выполнено заявок",
+                Binding =
+                    new Binding(
+                        "CompletedRequests"),
+                Width = 180
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header =
+                    "Активных заявок",
+                Binding =
+                    new Binding(
+                        "ActiveRequests"),
+                Width = 180
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header =
+                    "Среднее время (ч)",
+                Binding =
+                    new Binding(
+                        "AverageHours"),
+                Width = 180
+            });
+    }
+    private void ConfigureEquipmentColumns()
+    {
+        gridReport.Columns.Clear();
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header =
+                    "Инвентарный номер",
+                Binding =
+                    new Binding(
+                        "InventoryNumber"),
+                Width = 180
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header =
+                    "Оборудование",
+                Binding =
+                    new Binding(
+                        "EquipmentName"),
+                Width = 250
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header = "Модель",
+                Binding =
+                    new Binding(
+                        "Model"),
+                Width = 180
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header =
+                    "Производитель",
+                Binding =
+                    new Binding(
+                        "Manufacturer"),
+                Width = 180
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header = "Кабинет",
+                Binding =
+                    new Binding(
+                        "RoomNumber"),
+                Width = 120
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header =
+                    "Ответственный",
+                Binding =
+                    new Binding(
+                        "UserName"),
+                Width = 220
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header =
+                    "Дата ввода",
+                Binding =
+                    new Binding(
+                        "CommissioningDate")
+                    {
+                        StringFormat =
+                            "dd.MM.yyyy"
+                    },
+                Width = 130
+            });
+
+        gridReport.Columns.Add(
+            new DataGridTextColumn
+            {
+                Header =
+                    "Состояние",
+                Binding =
+                    new Binding(
+                        "StateName"),
+                Width = 150
+            });
+    }
     private DateTime DateFrom =>
         dpDateFrom.SelectedDate ??
         DateTime.Today.AddMonths(-1);
@@ -171,13 +438,58 @@ public partial class ReportsWindow : Window
                 &&
                 x.CreatedAt.Date <= DateTo.Date)
             .ToList();
+
     }
 
     private void btnApplyPeriod_Click(
         object sender,
         RoutedEventArgs e)
     {
-        LoadRequestsReport();
+        switch (currentReport)
+        {
+            case "Отчет по заявкам":
+
+                ConfigureRequestColumns();
+
+                LoadRequestsReport();
+
+                break;
+
+            case "Выполненные заявки":
+
+                ConfigureRequestColumns();
+
+                gridReport.ItemsSource =
+                    requestRepository
+                    .GetAll()
+                    .Where(x =>
+                        x.StatusName == "Завершена"
+                        &&
+                        x.CreatedAt.Date >= DateFrom.Date
+                        &&
+                        x.CreatedAt.Date <= DateTo.Date)
+                    .ToList();
+
+                break;
+
+            case "Отчет по специалистам":
+
+                ConfigureSpecialistColumns();
+
+                gridReport.ItemsSource =
+                    repository.GetSpecialists();
+
+                break;
+
+            case "Отчет по оборудованию":
+
+                ConfigureEquipmentColumns();
+
+                gridReport.ItemsSource =
+                    equipmentRepository.GetAll();
+
+                break;
+        }
     }
 
     private void btnRequests_Click(
@@ -186,16 +498,18 @@ public partial class ReportsWindow : Window
     {
         currentReport =
             "Отчет по заявкам";
-
+        ConfigureRequestColumns();
         LoadRequestsReport();
     }
 
     private void btnCompleted_Click(
-        object sender,
-        RoutedEventArgs e)
+     object sender,
+     RoutedEventArgs e)
     {
         currentReport =
             "Выполненные заявки";
+
+        ConfigureRequestColumns();
 
         gridReport.ItemsSource =
             requestRepository
@@ -209,11 +523,13 @@ public partial class ReportsWindow : Window
             .ToList();
     }
     private void btnSpecialists_Click(
-    object sender,
-    RoutedEventArgs e)
+        object sender,
+        RoutedEventArgs e)
     {
         currentReport =
             "Отчет по специалистам";
+
+        ConfigureSpecialistColumns();
 
         gridReport.ItemsSource =
             repository.GetSpecialists();
@@ -225,6 +541,8 @@ public partial class ReportsWindow : Window
     {
         currentReport =
             "Отчет по оборудованию";
+
+        ConfigureEquipmentColumns();
 
         gridReport.ItemsSource =
             equipmentRepository.GetAll();
@@ -280,55 +598,7 @@ public partial class ReportsWindow : Window
         }
     }
 
-    private void btnPdf_Click(
-        object sender,
-        RoutedEventArgs e)
-    {
-        if (gridReport.Items.Count == 0)
-        {
-            MessageBox.Show(
-                "Нет данных для экспорта");
-
-            return;
-        }
-
-        SaveFileDialog dialog =
-            new();
-
-        dialog.Filter =
-            "PDF (*.pdf)|*.pdf";
-
-        dialog.FileName =
-            $"{currentReport}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
-
-        if (dialog.ShowDialog() != true)
-            return;
-
-        try
-        {
-            DataTable table =
-                BuildDataTable();
-
-            PdfExportService.ExportDataTable(
-                table,
-                dialog.FileName,
-                currentReport);
-
-            MessageBox.Show(
-                "PDF отчет успешно сохранен",
-                "PDF",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(
-                ex.Message,
-                "Ошибка",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
-        }
-    }
+   
 
     private void btnBack_Click(
         object sender,

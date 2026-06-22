@@ -12,14 +12,18 @@ public partial class EquipmentListWindow : Window
     public EquipmentListWindow()
     {
         InitializeComponent();
-
+        txtWatermark.Visibility =
+    Visibility.Visible;
         LoadData();
     }
 
     private void LoadData()
     {
         gridEquipment.ItemsSource =
-            repository.GetAll();
+            repository
+            .GetAll()
+            .OrderBy(x => x.InventoryNumber)
+            .ToList();
     }
 
     private EquipmentModel? Selected()
@@ -29,9 +33,15 @@ public partial class EquipmentListWindow : Window
     }
 
     private void txtSearch_TextChanged(
-        object sender,
-        System.Windows.Controls.TextChangedEventArgs e)
+     object sender,
+     System.Windows.Controls.TextChangedEventArgs e)
     {
+        txtWatermark.Visibility =
+            string.IsNullOrWhiteSpace(
+                txtSearch.Text)
+            ? Visibility.Visible
+            : Visibility.Collapsed;
+
         string text =
             txtSearch.Text.Trim();
 
@@ -45,25 +55,62 @@ public partial class EquipmentListWindow : Window
             repository
             .GetAll()
             .Where(x =>
-                x.InventoryNumber.Contains(
-                    text,
-                    StringComparison.OrdinalIgnoreCase)
+
+                (x.InventoryNumber?
+                    .Contains(
+                        text,
+                        StringComparison.OrdinalIgnoreCase)
+                 ?? false)
+
                 ||
-                x.EquipmentName.Contains(
-                    text,
-                    StringComparison.OrdinalIgnoreCase)
+
+                (x.EquipmentName?
+                    .Contains(
+                        text,
+                        StringComparison.OrdinalIgnoreCase)
+                 ?? false)
+
                 ||
-                x.RoomNumber.Contains(
-                    text,
-                    StringComparison.OrdinalIgnoreCase)
+
+                (x.Model?
+                    .Contains(
+                        text,
+                        StringComparison.OrdinalIgnoreCase)
+                 ?? false)
+
                 ||
-                x.Manufacturer.Contains(
-                    text,
-                    StringComparison.OrdinalIgnoreCase)
+
+                (x.Manufacturer?
+                    .Contains(
+                        text,
+                        StringComparison.OrdinalIgnoreCase)
+                 ?? false)
+
                 ||
-                x.Model.Contains(
-                    text,
-                    StringComparison.OrdinalIgnoreCase))
+
+                (x.RoomNumber?
+                    .Contains(
+                        text,
+                        StringComparison.OrdinalIgnoreCase)
+                 ?? false)
+
+                ||
+
+                (x.UserName?
+                    .Contains(
+                        text,
+                        StringComparison.OrdinalIgnoreCase)
+                 ?? false)
+
+                ||
+
+                (x.StateName?
+                    .Contains(
+                        text,
+                        StringComparison.OrdinalIgnoreCase)
+                 ?? false)
+
+            )
             .ToList();
     }
 
@@ -118,7 +165,24 @@ public partial class EquipmentListWindow : Window
 
         window.ShowDialog();
     }
+    private void btnService_Click(
+    object sender,
+    RoutedEventArgs e)
+    {
+        if (Selected() == null)
+        {
+            MessageBox.Show(
+                "Выберите оборудование");
 
+            return;
+        }
+
+        EquipmentServiceWindow window =
+            new(
+                Selected()!.Id);
+
+        window.ShowDialog();
+    }
     private void btnDelete_Click(
         object sender,
         RoutedEventArgs e)

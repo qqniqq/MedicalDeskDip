@@ -49,6 +49,7 @@ public partial class MainWindow : Window
 
         btnReports.Click +=
             btnReports_Click;
+        
     }
 
     private void LoadDashboard()

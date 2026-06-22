@@ -26,7 +26,7 @@
             <Grid>
 
                 <TextBlock
-                    Text="Отчеты и аналитика"
+                    Text="Отчеты"
                     Foreground="White"
                     FontSize="24"
                     FontWeight="Bold"
@@ -223,23 +223,17 @@
                     Content="Экспорт Excel"
                     Click="btnExcel_Click"/>
 
-            <Button x:Name="btnPdf"
-                    Width="180"
-                    Height="35"
-                    Margin="5"
-                    Content="Экспорт PDF"
-                    Click="btnPdf_Click"/>
 
         </WrapPanel>
 
         <!-- Таблица отчета -->
 
         <DataGrid x:Name="gridReport"
-                  Grid.Row="4"
-                  Margin="0,10"
-                  AutoGenerateColumns="True"
-                  IsReadOnly="True"
-                  SelectionMode="Single"/>
+          Grid.Row="4"
+          Margin="0,10"
+          AutoGenerateColumns="False"
+          IsReadOnly="True"
+          SelectionMode="Single"/>
 
         <!-- Нижняя панель -->
 
