@@ -137,19 +137,39 @@ public class EquipmentRepository
 
         connection.Open();
 
-        string sql =
+        string deleteHistory =
         """
-        DELETE FROM Equipment
-        WHERE Id=@Id
-        """;
+    DELETE FROM EquipmentHistory
+    WHERE EquipmentId=@Id
+    """;
+
+        using var cmdHistory =
+            new MySqlCommand(
+                deleteHistory,
+                connection);
+
+        cmdHistory.Parameters.AddWithValue(
+            "@Id",
+            id);
+
+        cmdHistory.ExecuteNonQuery();
+
+        string deleteEquipment =
+        """
+    DELETE FROM Equipment
+    WHERE Id=@Id
+    """;
 
         using var cmd =
-            new MySqlCommand(sql, connection);
+            new MySqlCommand(
+                deleteEquipment,
+                connection);
 
-        cmd.Parameters.AddWithValue("@Id", id);
+        cmd.Parameters.AddWithValue(
+            "@Id",
+            id);
 
         cmd.ExecuteNonQuery();
-
     }
 
     private void FillParameters(

@@ -24,17 +24,10 @@
                 <TextBlock
                     Text="Расходные материалы"
                     Foreground="White"
-                    FontSize="24"
+                    FontSize="36"
                     FontWeight="Bold"
                     VerticalAlignment="Center"
                     Margin="20,0,0,0"/>
-
-                <Image
-                    Width="45"
-                    Height="45"
-                    HorizontalAlignment="Right"
-                    Margin="0,0,20,0"
-                    Source="/MedicalDeskForms;component/Resources/logo.png"/>
 
             </Grid>
 
@@ -47,57 +40,57 @@
       Height="35"
       Margin="5"
       Content="Все"
-      Click="btnAll_Click"/>
+      Click="btnAll_Click" FontSize="16"/>
             <Button x:Name="btnLowStock"
            Width="180"
            Height="35"
            Margin="5"
            Content="Минимальный остаток"
-           Click="btnLowStock_Click"/>
+           Click="btnLowStock_Click" FontSize="16"/>
 
             <Button x:Name="btnAdd"
                     Width="130"
                     Height="35"
                     Margin="5"
                     Content="Добавить"
-                    Click="btnAdd_Click"/>
+                    Click="btnAdd_Click" FontSize="16"/>
 
             <Button x:Name="btnEdit"
                     Width="130"
                     Height="35"
                     Margin="5"
                     Content="Изменить"
-                    Click="btnEdit_Click"/>
+                    Click="btnEdit_Click" FontSize="16"/>
 
             <Button x:Name="btnDelete"
                     Width="130"
                     Height="35"
                     Margin="5"
                     Content="Удалить"
-                    Click="btnDelete_Click"/>
+                    Click="btnDelete_Click" FontSize="16"/>
 
             <Button x:Name="btnIncome"
                     Width="130"
                     Height="35"
                     Margin="5"
                     Content="Пополнить"
-                    Click="btnIncome_Click"/>
+                    Click="btnIncome_Click" FontSize="16"/>
 
             <Button x:Name="btnHistory"
                     Width="130"
                     Height="35"
                     Margin="5"
                     Content="История"
-                    Click="btnHistory_Click"/>
+                    Click="btnHistory_Click" FontSize="16"/>
 
-         
+
 
         </WrapPanel>
 
         <DataGrid x:Name="gridMaterials"
                   Grid.Row="2"
                   AutoGenerateColumns="False"
-                  IsReadOnly="True">
+                  IsReadOnly="True" FontSize="16">
 
             <DataGrid.Columns>
 
@@ -152,7 +145,7 @@
                         Width="120"
                         Height="35"
                         Content="Назад"
-                        Click="btnBack_Click"/>
+                        Click="btnBack_Click" FontSize="16"/>
 
             </StackPanel>
 

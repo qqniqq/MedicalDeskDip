@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Оборудование"
         Width="900"
-        Height="850"
+        Height="1011"
         WindowStartupLocation="CenterScreen"
         Background="#F5F7FA"
         Icon="/MedicalDeskForms;component/Resources/icon.ico">
@@ -25,18 +25,11 @@
                 <TextBlock
                     x:Name="txtTitle"
                     Text="Добавление оборудования"
-                    FontSize="24"
+                    FontSize="36"
                     FontWeight="Bold"
                     Foreground="White"
                     VerticalAlignment="Center"
                     Margin="20,0,0,0"/>
-
-                <Image
-                    Width="45"
-                    Height="45"
-                    HorizontalAlignment="Right"
-                    Margin="0,0,20,0"
-                    Source="/MedicalDeskForms;component/Resources/logo.png"/>
 
             </Grid>
 
@@ -48,76 +41,76 @@
 
             <StackPanel Margin="10">
 
-                <TextBlock Text="Инвентарный номер"/>
+                <TextBlock Text="Инвентарный номер" FontSize="16"/>
 
                 <TextBox
                     x:Name="txtInventory"
                     Height="35"
                     Margin="0,5,0,15"
                     IsReadOnly="True"
-                    Background="#E9EDF2"/>
+                    Background="#E9EDF2" FontSize="14"/>
 
-                <TextBlock Text="Наименование оборудования"/>
+                <TextBlock Text="Наименование оборудования" FontSize="16"/>
 
                 <TextBox
                     x:Name="txtName"
                     Height="35"
                     Margin="0,5,0,15"/>
 
-                <TextBlock Text="Модель"/>
+                <TextBlock Text="Модель" FontSize="16"/>
 
                 <TextBox
                     x:Name="txtModel"
                     Height="35"
-                    Margin="0,5,0,15"/>
+                    Margin="0,5,0,15" FontSize="14"/>
 
-                <TextBlock Text="Серийный номер"/>
+                <TextBlock Text="Серийный номер" FontSize="16"/>
 
                 <TextBox
                     x:Name="txtSerial"
                     Height="35"
-                    Margin="0,5,0,15"/>
+                    Margin="0,5,0,15" FontSize="14"/>
 
-                <TextBlock Text="Производитель"/>
+                <TextBlock Text="Производитель" FontSize="16"/>
 
                 <TextBox
                     x:Name="txtManufacturer"
                     Height="35"
-                    Margin="0,5,0,15"/>
+                    Margin="0,5,0,15" FontSize="14"/>
 
-                <TextBlock Text="Кабинет"/>
+                <TextBlock Text="Кабинет" FontSize="16"/>
 
                 <TextBox
                     x:Name="txtRoom"
                     Height="35"
-                    Margin="0,5,0,15"/>
+                    Margin="0,5,0,15" FontSize="14"/>
 
-                <TextBlock Text="Ответственный пользователь"/>
+                <TextBlock Text="Ответственный пользователь" FontSize="16"/>
 
                 <ComboBox
                     x:Name="cmbUser"
                     Height="35"
                     Margin="0,5,0,15"/>
 
-                <TextBlock Text="Дата ввода в эксплуатацию"/>
+                <TextBlock Text="Дата ввода в эксплуатацию" FontSize="16"/>
 
                 <DatePicker
     x:Name="dpCommissioningDate"
     Height="35"
     Margin="0,5,0,15"
-    PreviewTextInput="DatePicker_PreviewTextInput"/>
+    PreviewTextInput="DatePicker_PreviewTextInput" FontSize="14"/>
 
-                <TextBlock Text="Состояние"/>
+                <TextBlock Text="Состояние" FontSize="16"/>
                 <ComboBox
     x:Name="cmbState"
     Height="35"
-    Margin="0,5,0,15"/>
+    Margin="0,5,0,15" FontSize="14"/>
 
-                <TextBlock Text="Примечание"/>
+                <TextBlock Text="Примечание" FontSize="16"/>
 
                 <TextBox
     x:Name="txtNotes"
-    Height="120"
+    Height="87"
     Margin="0,5,0,15"
     TextWrapping="Wrap"
     AcceptsReturn="True"
@@ -142,7 +135,7 @@
             Height="35"
             Margin="5"
             Content="Сохранить"
-            Click="btnSave_Click"/>
+            Click="btnSave_Click" FontSize="14" TextBlock.FontSize="16"/>
 
                 <Button
             x:Name="btnBack"
@@ -150,7 +143,7 @@
             Height="35"
             Margin="5"
             Content="Назад"
-            Click="btnBack_Click"/>
+            Click="btnBack_Click" FontSize="14" TextBlock.FontSize="16"/>
 
             </StackPanel>
 

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Материал"
         Width="700"
-        Height="650"
+        Height="671"
         WindowStartupLocation="CenterScreen"
         Background="#F5F7FA"
         Icon="/MedicalDeskForms;component/Resources/icon.ico">
@@ -28,13 +28,6 @@
                     VerticalAlignment="Center"
                     Margin="20,0,0,0"/>
 
-                <Image
-                    Width="45"
-                    Height="45"
-                    HorizontalAlignment="Right"
-                    Margin="0,0,20,0"
-                    Source="/MedicalDeskForms;component/Resources/logo.png"/>
-
             </Grid>
 
         </Border>
@@ -43,47 +36,47 @@
 
             <StackPanel Margin="10">
 
-                <TextBlock Text="Наименование"/>
+                <TextBlock Text="Наименование" FontSize="16"/>
 
                 <TextBox
                     x:Name="txtName"
                     Height="35"
-                    Margin="0,5,0,10"/>
+                    Margin="0,5,0,10" FontSize="14"/>
 
-                <TextBlock Text="Категория"/>
+                <TextBlock Text="Категория" FontSize="16"/>
 
                 <ComboBox
                     x:Name="cmbCategory"
                     Height="35"
-                    Margin="0,5,0,10"/>
+                    Margin="0,5,0,10" TextBlock.FontSize="14"/>
 
-                <TextBlock Text="Количество"/>
+                <TextBlock Text="Количество" FontSize="16"/>
 
                 <TextBox
                     x:Name="txtQuantity"
                     Height="35"
-                    Margin="0,5,0,10"/>
+                    Margin="0,5,0,10" TextBlock.FontSize="14"/>
 
-                <TextBlock Text="Минимальный остаток"/>
+                <TextBlock Text="Минимальный остаток" FontSize="16"/>
 
                 <TextBox
                     x:Name="txtMinimum"
                     Height="35"
-                    Margin="0,5,0,10"/>
+                    Margin="0,5,0,10" TextBlock.FontSize="14"/>
 
-                <TextBlock Text="Дата поступления"/>
+                <TextBlock Text="Дата поступления" FontSize="16"/>
 
                 <DatePicker
                     x:Name="dpReceiptDate"
-                    Margin="0,5,0,10"/>
+                    Margin="0,5,0,10" TextBlock.FontSize="14"/>
 
-                <TextBlock Text="Примечание"/>
+                <TextBlock Text="Примечание" FontSize="16"/>
 
                 <TextBox
                     x:Name="txtNotes"
-                    Height="120"
+                    Height="90"
                     AcceptsReturn="True"
-                    TextWrapping="Wrap"/>
+                    TextWrapping="Wrap" TextBlock.FontSize="14"/>
 
             </StackPanel>
 
@@ -101,14 +94,14 @@
                         Height="35"
                         Margin="5"
                         Content="Сохранить"
-                        Click="btnSave_Click"/>
+                        Click="btnSave_Click" FontSize="16"/>
 
                 <Button x:Name="btnCancel"
                         Width="140"
                         Height="35"
                         Margin="5"
                         Content="Отмена"
-                        Click="btnCancel_Click"/>
+                        Click="btnCancel_Click" FontSize="16"/>
 
             </StackPanel>
 

@@ -35,18 +35,18 @@
         <StackPanel Grid.Row="1"
                     Margin="10">
 
-            <TextBlock Text="Количество"/>
+            <TextBlock Text="Количество" FontSize="16"/>
 
             <TextBox x:Name="txtQuantity"
                      Height="35"
-                     Margin="0,5,0,15"/>
+                     Margin="0,5,0,15" FontSize="14"/>
 
-            <TextBlock Text="Комментарий"/>
+            <TextBlock Text="Комментарий" FontSize="16"/>
 
             <TextBox x:Name="txtComment"
                      Height="120"
                      TextWrapping="Wrap"
-                     AcceptsReturn="True"/>
+                     AcceptsReturn="True" FontSize="14"/>
 
         </StackPanel>
 
@@ -61,13 +61,13 @@
                         Width="150"
                         Height="35"
                         Margin="5"
-                        Click="btnSave_Click"/>
+                        Click="btnSave_Click" FontSize="16"/>
 
                 <Button Content="Назад"
                         Width="120"
                         Height="35"
                         Margin="5"
-                        Click="btnBack_Click"/>
+                        Click="btnBack_Click" FontSize="16"/>
 
             </StackPanel>
 

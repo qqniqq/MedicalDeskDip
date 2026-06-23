@@ -22,7 +22,7 @@
             <TextBlock
                 Text="Карточка пользователя"
                 Foreground="White"
-                FontSize="24"
+                FontSize="36"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
                 Margin="20,0,0,0"/>
@@ -34,26 +34,26 @@
             <StackPanel Margin="25">
 
                 <TextBlock
-                    Text="ФИО"/>
+                    Text="ФИО" FontSize="16"/>
 
                 <TextBox
     x:Name="txtFullName"
     Height="35"
     Margin="0,5,0,15"
-    PreviewTextInput="txtFullName_PreviewTextInput"/>
+    PreviewTextInput="txtFullName_PreviewTextInput" FontSize="16"/>
 
                 <TextBlock
-                    Text="Телефон"/>
+                    Text="Телефон" FontSize="16"/>
 
                 <TextBox
     x:Name="txtPhone"
     Height="35"
     Margin="0,5,0,15"
     TextChanged="txtPhone_TextChanged"
-    PreviewTextInput="txtPhone_PreviewTextInput"/>
+    PreviewTextInput="txtPhone_PreviewTextInput" FontSize="16"/>
 
                 <TextBlock
-                    Text="Логин"/>
+                    Text="Логин" FontSize="16"/>
 
                 <Grid Margin="0,5,0,15">
 
@@ -65,44 +65,44 @@
                     <TextBox
     x:Name="txtLogin"
     Height="35"
-    PreviewTextInput="txtLogin_PreviewTextInput"/>
+    PreviewTextInput="txtLogin_PreviewTextInput" FontSize="16"/>
                     <Button
                         Grid.Column="1"
                         Margin="10,0,0,0"
                         Content="Сгенерировать"
-                        Click="btnGenerateLogin_Click"/>
+                        Click="btnGenerateLogin_Click" FontSize="16"/>
 
                 </Grid>
 
                 <TextBlock
-                    Text="Пароль"/>
+                    Text="Пароль" FontSize="16"/>
 
                 <PasswordBox
                     x:Name="txtPassword"
                     Height="35"
-                    Margin="0,5,0,15"/>
+                    Margin="0,5,0,15" FontSize="16"/>
 
                 <TextBlock
-                    Text="Подтверждение пароля"/>
+                    Text="Подтверждение пароля" FontSize="16"/>
 
                 <PasswordBox
                     x:Name="txtPasswordConfirm"
                     Height="35"
-                    Margin="0,5,0,15"/>
+                    Margin="0,5,0,15" FontSize="16"/>
 
                 <TextBlock
-                    Text="Роль"/>
+                    Text="Роль" FontSize="16"/>
 
                 <ComboBox
                     x:Name="cmbRole"
                     Height="35"
-                    Margin="0,5,0,15"/>
+                    Margin="0,5,0,15" FontSize="16"/>
 
                 <CheckBox
                     x:Name="chkIsActive"
                     Content="Активный пользователь"
                     IsChecked="True"
-                    Margin="0,15,0,0"/>
+                    Margin="0,15,0,0" FontSize="16"/>
 
             </StackPanel>
 
@@ -122,14 +122,14 @@
                     Height="35"
                     Margin="5"
                     Content="Назад"
-                    Click="btnBack_Click"/>
+                    Click="btnBack_Click" FontSize="16"/>
 
                 <Button
                     Width="130"
                     Height="35"
                     Margin="5"
                     Content="Сохранить"
-                    Click="btnSave_Click"/>
+                    Click="btnSave_Click" FontSize="16"/>
 
             </StackPanel>
 

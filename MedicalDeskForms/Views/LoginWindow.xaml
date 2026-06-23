@@ -21,7 +21,7 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center">
 
-                <Image Width="320"
+                <Image Width="404"
                        Height="320"
                  Source="/MedicalDeskForms;component/Resources/logo.png"/>
 
@@ -52,32 +52,32 @@
 
                     <TextBlock
                         Text="Вход в систему"
-                        FontSize="30"
+                        FontSize="36"
                         FontWeight="Bold"
                         Margin="0,0,0,40"/>
 
                     <TextBlock
-                        Text="Логин"/>
+                        Text="Логин" FontSize="18"/>
 
                     <TextBox
                         x:Name="txtLogin"
                         Height="40"
-                        Margin="0,5,0,20"/>
+                        Margin="0,5,0,20" FontSize="16"/>
 
                     <TextBlock
-                        Text="Пароль"/>
+                        Text="Пароль" FontSize="18"/>
 
                     <PasswordBox
                         x:Name="txtPassword"
                         Height="40"
-                        Margin="0,5,0,30"/>
+                        Margin="0,5,0,30" FontSize="14"/>
 
                     <Button
                         x:Name="btnLogin"
                         Height="45"
                         Content="Войти"
                         FontWeight="Bold"
-                        Click="btnLogin_Click"/>
+                        Click="btnLogin_Click" FontSize="16"/>
 
                 </StackPanel>
 

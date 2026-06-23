@@ -2,13 +2,16 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Учет оборудования"
-        Width="1400"
-        Height="800"
+        Width="1493"
+        Height="874"
         WindowStartupLocation="CenterScreen"
         Background="#F5F7FA"
         Icon="/MedicalDeskForms;component/Resources/icon.ico">
 
     <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
@@ -26,17 +29,10 @@
                 <TextBlock
                     Text="Учет оборудования"
                     Foreground="White"
-                    FontSize="24"
+                    FontSize="36"
                     FontWeight="Bold"
                     VerticalAlignment="Center"
                     Margin="20,0,0,0"/>
-
-                <Image
-                    Width="45"
-                    Height="45"
-                    HorizontalAlignment="Right"
-                    Margin="0,0,20,0"
-                    Source="/MedicalDeskForms;component/Resources/logo.png"/>
 
             </Grid>
 
@@ -46,7 +42,7 @@
 
         <Border Grid.Row="1"
                 Background="White"
-                Margin="0,10,0,10"
+                Margin="0,10,0,820"
                 Padding="10">
 
             <WrapPanel>
@@ -67,50 +63,59 @@
         Foreground="Gray"
         Margin="12,0,0,0"
         VerticalAlignment="Center"
-        IsHitTestVisible="False"/>
+        IsHitTestVisible="False" FontSize="18"/>
 
                 </Grid>
 
                 <Button
-                    Width="150"
+                    Width="170"
                     Height="35"
                     Margin="5"
                     Content="Добавить"
-                    Click="btnAdd_Click"/>
+                    Click="btnAdd_Click" FontSize="14" TextBlock.FontSize="18"/>
 
                 <Button
-                    Width="150"
+                    Width="170"
                     Height="35"
                     Margin="5"
                     Content="Редактировать"
-                    Click="btnEdit_Click"/>
+                    Click="btnEdit_Click" FontSize="14" TextBlock.FontSize="18"/>
 
                 <Button
-                    Width="150"
+                    Width="170"
                     Height="35"
                     Margin="5"
                     Content="История"
-                    Click="btnHistory_Click"/>
+                    Click="btnHistory_Click" FontSize="14" TextBlock.FontSize="18"/>
                 <Button
     Width="180"
     Height="35"
     Margin="5"
     Content="Обслуживание"
-    Click="btnService_Click"/>
+    Click="btnService_Click" FontSize="14" TextBlock.FontSize="18"/>
 
                 <Button
-                    Width="150"
+                    Width="163"
                     Height="35"
-                    Margin="5"
+                        Margin="5"
                     Content="Удалить"
-                    Click="btnDelete_Click"/>
+                    Click="btnDelete_Click" FontSize="14" RenderTransformOrigin="0.5,0.5" TextBlock.FontSize="18">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.064"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
 
                 <Button
-                    Width="150"
+                    Width="180"
                     Height="35"
-                    Margin="5"
+                        Margin="5"
                     Content="Обновить"
-                    Click="btnRefresh_Click"/>
+                    Click="btnRefresh_Click" FontSize="14" TextBlock.FontSize="18"/>
 
             </WrapPanel>
 
@@ -119,9 +124,9 @@
         <!-- Таблица -->
 
         <DataGrid x:Name="gridEquipment"
-                  Grid.Row="2"
+                  Grid.Row="1"
                   AutoGenerateColumns="False"
-                  IsReadOnly="True">
+                  IsReadOnly="True" FontSize="16" Margin="10,85,0,271">
 
             <DataGrid.Columns>
 
@@ -142,12 +147,12 @@
 
                 <DataGridTextColumn
                     Header="Серийный номер"
-                    Width="180"
+                    Width="140"
                     Binding="{Binding SerialNumber}"/>
 
                 <DataGridTextColumn
                     Header="Производитель"
-                    Width="180"
+                    Width="130"
                     Binding="{Binding Manufacturer}"/>
 
                 <DataGridTextColumn
@@ -162,7 +167,7 @@
 
                 <DataGridTextColumn
                     Header="Дата ввода"
-                    Width="130"
+                    Width="110"
                     Binding="{Binding CommissioningDate,
                     StringFormat=dd.MM.yyyy}"/>
 
@@ -177,8 +182,8 @@
 
         <!-- Низ -->
 
-        <Border Grid.Row="3"
-                Background="#E9EDF2">
+        <Border Grid.Row="1"
+                Background="#E9EDF2" Margin="0,624,0,211">
 
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Center"
@@ -188,7 +193,7 @@
                     Width="120"
                     Height="35"
                     Content="Назад"
-                    Click="btnBack_Click"/>
+                    Click="btnBack_Click" FontSize="16" TextBlock.FontSize="18"/>
 
             </StackPanel>
 

@@ -23,18 +23,11 @@
 
                 <TextBlock
                     Text="Карточка заявки"
-                    FontSize="24"
+                    FontSize="36"
                     FontWeight="Bold"
                     Foreground="White"
                     VerticalAlignment="Center"
                     Margin="20,0,0,0"/>
-
-                <Image
-                    Width="120"
-                    Height="120"
-                    HorizontalAlignment="Right"
-                    Margin="0,0,20,0"
-                    Source="/MedicalDeskForms;component/Resources/logo.png"/>
 
             </Grid>
 
@@ -54,47 +47,47 @@
 
                 <StackPanel Margin="10">
 
-                    <TextBlock Text="Номер заявки"/>
+                    <TextBlock Text="Номер заявки" FontSize="16"/>
                     <TextBox x:Name="txtNumber"
-                             IsReadOnly="True"/>
+                             IsReadOnly="True" TextBlock.FontSize="16"/>
 
-                    <TextBlock Text="Кабинет"/>
+                    <TextBlock Text="Кабинет" FontSize="16"/>
                     <TextBox x:Name="txtRoom"
-                             IsReadOnly="True"/>
+                             IsReadOnly="True" TextBlock.FontSize="16"/>
 
-                    <TextBlock Text="Заявитель"/>
+                    <TextBlock Text="Заявитель" FontSize="16"/>
                     <TextBox x:Name="txtApplicant"
-                             IsReadOnly="True"/>
+                             IsReadOnly="True" TextBlock.FontSize="16"/>
 
-                    <TextBlock Text="Телефон"/>
+                    <TextBlock Text="Телефон" FontSize="16"/>
                     <TextBox x:Name="txtPhone"
-                             IsReadOnly="True"/>
+                             IsReadOnly="True" TextBlock.FontSize="16"/>
 
-                    <TextBlock Text="Тип обращения"/>
+                    <TextBlock Text="Тип обращения" FontSize="16"/>
                     <TextBox x:Name="txtType"
-                             IsReadOnly="True"/>
+                             IsReadOnly="True" TextBlock.FontSize="16"/>
 
-                    <TextBlock Text="Статус"/>
+                    <TextBlock Text="Статус" FontSize="16"/>
                     <TextBox x:Name="txtStatus"
-                             IsReadOnly="True"/>
+                             IsReadOnly="True" TextBlock.FontSize="16"/>
 
-                    <TextBlock Text="Исполнитель"/>
+                    <TextBlock Text="Исполнитель" FontSize="16"/>
                     <TextBox x:Name="txtExecutor"
-                             IsReadOnly="True"/>
+                             IsReadOnly="True" TextBlock.FontSize="16"/>
 
-                    <TextBlock Text="Дата создания"/>
+                    <TextBlock Text="Дата создания" FontSize="16"/>
                     <TextBox x:Name="txtCreated"
-                             IsReadOnly="True"/>
+                             IsReadOnly="True" TextBlock.FontSize="16"/>
 
-                    <TextBlock Text="Дата принятия"/>
+                    <TextBlock Text="Дата принятия" FontSize="16"/>
                     <TextBox x:Name="txtAccepted"
-                             IsReadOnly="True"/>
+                             IsReadOnly="True" TextBlock.FontSize="16"/>
 
-                    <TextBlock Text="Дата завершения"/>
+                    <TextBlock Text="Дата завершения" FontSize="16"/>
                     <TextBox x:Name="txtCompleted"
                              IsReadOnly="True"/>
 
-                    <TextBlock Text="Описание проблемы"/>
+                    <TextBlock Text="Описание проблемы" FontSize="16"/>
 
                     <TextBox x:Name="txtDescription"
                              Height="150"
@@ -144,7 +137,7 @@
                 <DataGrid
                     x:Name="gridHistory"
                     AutoGenerateColumns="False"
-                    IsReadOnly="True">
+                    IsReadOnly="True" FontSize="14">
 
                     <DataGrid.Columns>
 
@@ -188,7 +181,7 @@
                 <Button x:Name="btnBack"
                         Width="120"
                         Content="Назад"
-                        Click="btnBack_Click"/>
+                        Click="btnBack_Click" FontSize="16"/>
 
             </StackPanel>
 

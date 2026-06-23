@@ -33,31 +33,31 @@
                     x:Name="btnRequests"
                     Content="Заявки"
                     Height="50"
-                    Margin="10" RenderTransformOrigin="0.5,0.5"/>
+                    Margin="10" RenderTransformOrigin="0.5,0.5" FontSize="18"/>
 
                 <Button
                     x:Name="btnEquipment"
                     Content="Оборудование"
                     Height="50"
-                    Margin="10"/>
+                    Margin="10" FontSize="18"/>
 
                 <Button
                     x:Name="btnMaterials"
                     Content="Расходники"
                     Height="50"
-                    Margin="10"/>
+                    Margin="10" FontSize="18"/>
 
                 <Button
                     x:Name="btnUsers"
                     Content="Пользователи"
                     Height="50"
-                    Margin="10"/>
+                    Margin="10" FontSize="18"/>
 
                 <Button
                     x:Name="btnReports"
                     Content="Отчеты"
                     Height="50"
-                    Margin="10"/>
+                    Margin="10" FontSize="18"/>
 
 
 
@@ -65,14 +65,14 @@
                     x:Name="btnNotifications"
                     Content="Уведомления"
                     Height="50"
-                    Margin="10"/>
+                    Margin="10" FontSize="18"/>
 
                 <Button
                     x:Name="btnExit"
                     Content="Выход"
                     Height="50"
                     Margin="10"
-                    Click="btnExit_Click"/>
+                    Click="btnExit_Click" FontSize="18"/>
 
             </StackPanel>
 
@@ -92,7 +92,7 @@
 
             <!-- Верхняя панель -->
 
-            <Border Background="White">
+            <Border Background="White" Margin="24,0,0,0">
 
                 <Grid Margin="20">
 
@@ -108,7 +108,7 @@
                 x:Name="txtCurrentUser"
                 FontSize="18"
                 FontWeight="Bold"
-                VerticalAlignment="Center"/>
+                VerticalAlignment="Center" Margin="10,0,0,0"/>
 
                     <TextBlock
                 x:Name="txtDate"
@@ -149,7 +149,7 @@
 
                                 <TextBlock
                             Text="MedicalDesk"
-                            FontSize="34"
+                            FontSize="48"
                             FontWeight="Bold"
                             Foreground="#0A2E5D"/>
 
@@ -174,9 +174,9 @@
 
                     <WrapPanel Margin="0,20,0,0">
 
-                        <Border Width="250"
+                        <Border Width="280"
                         Height="130"
-                        Margin="5"
+                                Margin="5"
                         CornerRadius="10"
                         Background="White"
                         BorderBrush="#D6DCE5"
@@ -186,7 +186,7 @@
 
                                 <TextBlock
                             Text="Активные заявки"
-                            FontSize="16"
+                            FontSize="18"
                             HorizontalAlignment="Center"
                             Margin="0,15,0,0"/>
 
@@ -200,9 +200,9 @@
 
                         </Border>
 
-                        <Border Width="250"
+                        <Border Width="280"
                         Height="130"
-                        Margin="5"
+                                Margin="5"
                         CornerRadius="10"
                         Background="White"
                         BorderBrush="#D6DCE5"
@@ -212,7 +212,7 @@
 
                                 <TextBlock
                             Text="Новые"
-                            FontSize="16"
+                            FontSize="18"
                             HorizontalAlignment="Center"
                             Margin="0,15,0,0"/>
 
@@ -226,9 +226,9 @@
 
                         </Border>
 
-                        <Border Width="250"
+                        <Border Width="280"
                         Height="130"
-                        Margin="5"
+                         Margin="5"       
                         CornerRadius="10"
                         Background="White"
                         BorderBrush="#D6DCE5"
@@ -238,7 +238,7 @@
 
                                 <TextBlock
                             Text="В работе"
-                            FontSize="16"
+                            FontSize="18"
                             HorizontalAlignment="Center"
                             Margin="0,15,0,0"/>
 
@@ -252,9 +252,9 @@
 
                         </Border>
 
-                        <Border Width="250"
+                        <Border Width="280"
                         Height="130"
-                        Margin="5"
+                                Margin="5"
                         CornerRadius="10"
                         Background="White"
                         BorderBrush="#D6DCE5"
@@ -264,7 +264,7 @@
 
                                 <TextBlock
                             Text="Уведомления"
-                            FontSize="16"
+                            FontSize="18"
                             HorizontalAlignment="Center"
                             Margin="0,15,0,0"/>
 
@@ -292,7 +292,7 @@
 
                             <TextBlock
                         Text="Информация"
-                        FontSize="24"
+                        FontSize="36"
                         FontWeight="Bold"
                         Foreground="#0A2E5D"/>
 
@@ -323,7 +323,7 @@
 
                     </Border>
 
- 
+
 
                 </StackPanel>
 

@@ -30,13 +30,6 @@
                     VerticalAlignment="Center"
                     Margin="20,0,0,0"/>
 
-                <Image
-                    Width="45"
-                    Height="45"
-                    HorizontalAlignment="Right"
-                    Margin="0,0,20,0"
-                    Source="/MedicalDeskForms;component/Resources/logo.png"/>
-
             </Grid>
 
         </Border>
@@ -48,12 +41,12 @@
             <StackPanel Margin="10">
 
                 <TextBlock
-                    Text="Кабинет"/>
+                    Text="Кабинет" FontSize="16"/>
 
                 <TextBox
                     x:Name="txtRoom"
                     Height="35"
-                    Margin="0,5,0,15"/>
+                    Margin="0,5,0,15" FontSize="14"/>
 
                 <!-- Для администратора и специалиста -->
 
@@ -61,42 +54,42 @@
                     x:Name="panelUser">
 
                     <TextBlock
-                        Text="Пользователь"/>
+                        Text="Пользователь" FontSize="16"/>
 
                     <ComboBox
                         x:Name="cmbUser"
                         Height="35"
                         Margin="0,5,0,15"
-                        SelectionChanged="cmbUser_SelectionChanged"/>
+                        SelectionChanged="cmbUser_SelectionChanged" FontSize="14"/>
 
                     <TextBlock
-                        Text="Телефон"/>
+                        Text="Телефон" FontSize="16"/>
 
                     <TextBox
                         x:Name="txtPhone"
                         Height="35"
                         Margin="0,5,0,15"
-                        IsReadOnly="True"/>
+                        IsReadOnly="True" FontSize="14"/>
 
                 </StackPanel>
 
                 <TextBlock
-                    Text="Тип обращения"/>
+                    Text="Тип обращения" FontSize="16"/>
 
                 <ComboBox
                     x:Name="cmbType"
                     Height="35"
-                    Margin="0,5,0,15"/>
+                    Margin="0,5,0,15" FontSize="14"/>
 
                 <TextBlock
-                    Text="Описание проблемы"/>
+                    Text="Описание проблемы" FontSize="16"/>
 
                 <TextBox
                     x:Name="txtDescription"
                     Height="220"
                     AcceptsReturn="True"
                     TextWrapping="Wrap"
-                    VerticalScrollBarVisibility="Auto"/>
+                    VerticalScrollBarVisibility="Auto" FontSize="14"/>
 
             </StackPanel>
 
@@ -117,7 +110,7 @@
                     Height="35"
                     Margin="5"
                     Content="Сохранить"
-                    Click="btnSave_Click"/>
+                    Click="btnSave_Click" FontSize="16"/>
 
                 <Button
                     x:Name="btnBack"
@@ -125,7 +118,7 @@
                     Height="35"
                     Margin="5"
                     Content="Назад"
-                    Click="btnBack_Click"/>
+                    Click="btnBack_Click" FontSize="16"/>
 
             </StackPanel>
 

@@ -27,17 +27,10 @@
                 <TextBlock
                     Text="Центр уведомлений"
                     Foreground="White"
-                    FontSize="24"
+                    FontSize="36"
                     FontWeight="Bold"
                     VerticalAlignment="Center"
                     Margin="20,0,0,0"/>
-
-                <Image
-                    Width="45"
-                    Height="45"
-                    HorizontalAlignment="Right"
-                    Margin="0,0,20,0"
-                    Source="/MedicalDeskForms;component/Resources/logo.png"/>
 
             </Grid>
 
@@ -58,20 +51,20 @@
                         Height="35"
                         Margin="5"
                         Content="Отметить как прочитанное"
-                        Click="btnRead_Click"/>
+                        Click="btnRead_Click" FontSize="16"/>
 
                 <Button x:Name="btnRefresh"
                         Width="140"
                         Height="35"
                         Margin="5"
                         Content="Обновить"
-                        Click="btnRefresh_Click"/>
+                        Click="btnRefresh_Click" FontSize="16"/>
 
                 <TextBlock
                     Margin="30,0,0,0"
                     VerticalAlignment="Center"
                     FontWeight="Bold"
-                    FontSize="14"
+                    FontSize="16"
                     Text="Двойной щелчок по уведомлению также помечает его как прочитанное"/>
 
             </WrapPanel>
@@ -85,7 +78,7 @@
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   SelectionMode="Single"
-                  MouseDoubleClick="gridNotifications_MouseDoubleClick">
+                  MouseDoubleClick="gridNotifications_MouseDoubleClick" FontSize="18">
 
             <DataGrid.RowStyle>
 
@@ -152,6 +145,14 @@
 
             <DockPanel Margin="15">
 
+                <Button x:Name="btnBack"
+                        Width="120"
+                        Height="35"
+                        Margin="10"
+                        HorizontalAlignment="Left"
+                        DockPanel.Dock="Left"
+                        Content="Назад"
+                        Click="btnBack_Click" FontSize="18"/>
                 <TextBlock
                     x:Name="txtInfo"
                     FontWeight="Bold"
@@ -159,13 +160,6 @@
                     DockPanel.Dock="Left"
                     Text="Уведомления отображаются автоматически"/>
 
-                <Button x:Name="btnBack"
-                        Width="120"
-                        Height="35"
-                        HorizontalAlignment="Right"
-                        DockPanel.Dock="Right"
-                        Content="Закрыть"
-                        Click="btnBack_Click"/>
 
             </DockPanel>
 

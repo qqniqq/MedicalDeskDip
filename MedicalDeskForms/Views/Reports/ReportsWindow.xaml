@@ -33,13 +33,6 @@
                     VerticalAlignment="Center"
                     Margin="20,0,0,0"/>
 
-                <Image
-                    Width="45"
-                    Height="45"
-                    HorizontalAlignment="Right"
-                    Margin="0,0,20,0"
-                    Source="/MedicalDeskForms;component/Resources/logo.png"/>
-
             </Grid>
 
         </Border>
@@ -57,29 +50,29 @@
                 <TextBlock
                     Text="Период с:"
                     VerticalAlignment="Center"
-                    Margin="0,0,10,0"/>
+                    Margin="0,0,10,0" FontSize="16"/>
 
                 <DatePicker
                     x:Name="dpDateFrom"
                     Width="150"
-                    Margin="0,0,20,0"/>
+                    Margin="0,0,20,0" TextBlock.FontSize="16"/>
 
                 <TextBlock
                     Text="по:"
                     VerticalAlignment="Center"
-                    Margin="0,0,10,0"/>
+                    Margin="0,0,10,0" FontSize="16"/>
 
                 <DatePicker
                     x:Name="dpDateTo"
                     Width="150"
-                    Margin="0,0,20,0"/>
+                    Margin="0,0,20,0" TextBlock.FontSize="16"/>
 
                 <Button
                     x:Name="btnApplyPeriod"
                     Width="170"
                     Height="35"
                     Content="Сформировать"
-                    Click="btnApplyPeriod_Click"/>
+                    Click="btnApplyPeriod_Click" TextBlock.FontSize="16"/>
 
             </WrapPanel>
 
@@ -101,7 +94,7 @@
 
                     <TextBlock
                         Text="Всего заявок"
-                        HorizontalAlignment="Center"/>
+                        HorizontalAlignment="Center" FontSize="16"/>
 
                     <TextBlock
                         x:Name="txtTotal"
@@ -124,7 +117,7 @@
 
                     <TextBlock
                         Text="Новые"
-                        HorizontalAlignment="Center"/>
+                        HorizontalAlignment="Center" FontSize="16"/>
 
                     <TextBlock
                         x:Name="txtNew"
@@ -147,7 +140,7 @@
 
                     <TextBlock
                         Text="В работе"
-                        HorizontalAlignment="Center"/>
+                        HorizontalAlignment="Center" FontSize="16"/>
 
                     <TextBlock
                         x:Name="txtWork"
@@ -170,7 +163,7 @@
 
                     <TextBlock
                         Text="Завершено"
-                        HorizontalAlignment="Center"/>
+                        HorizontalAlignment="Center" FontSize="16"/>
 
                     <TextBlock
                         x:Name="txtCompleted"
@@ -193,35 +186,35 @@
                     Height="35"
                     Margin="5"
                     Content="Отчет по заявкам"
-                    Click="btnRequests_Click"/>
+                    Click="btnRequests_Click" FontSize="16"/>
 
             <Button x:Name="btnCompleted"
                     Width="220"
                     Height="35"
                     Margin="5"
                     Content="Выполненные заявки"
-                    Click="btnCompleted_Click"/>
+                    Click="btnCompleted_Click" FontSize="16"/>
 
             <Button x:Name="btnSpecialists"
                     Width="220"
                     Height="35"
                     Margin="5"
                     Content="Специалисты"
-                    Click="btnSpecialists_Click"/>
+                    Click="btnSpecialists_Click" FontSize="16"/>
 
             <Button x:Name="btnEquipment"
                     Width="220"
                     Height="35"
                     Margin="5"
                     Content="Оборудование"
-                    Click="btnEquipment_Click"/>
+                    Click="btnEquipment_Click" FontSize="16"/>
 
             <Button x:Name="btnExcel"
                     Width="180"
                     Height="35"
                     Margin="5"
                     Content="Экспорт Excel"
-                    Click="btnExcel_Click"/>
+                    Click="btnExcel_Click" FontSize="16"/>
 
 
         </WrapPanel>
@@ -233,7 +226,7 @@
           Margin="0,10"
           AutoGenerateColumns="False"
           IsReadOnly="True"
-          SelectionMode="Single"/>
+          SelectionMode="Single" FontSize="16"/>
 
         <!-- Нижняя панель -->
 
